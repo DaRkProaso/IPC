@@ -18,17 +18,17 @@ import javafx.scene.control.Label;
  * @author jsoler
  */
 public class PaginaPrincipal implements Initializable {
-    //========================================================
-    // objects defined into FXML file with fx:id 
-    @FXML
-    private Button buttonClick;
-    @FXML
     private Label labelMessage;
+    @FXML
+    private Button iniciar;
+    @FXML
+    private Button reserva;
+    @FXML
+    private Button pistas;
     
     //=========================================================
     // event handler, fired when button is clicked or 
     //                      when the button has the focus and enter is pressed
-    @FXML
     private void handleButtonAction(ActionEvent event) {
         labelMessage.setText("Hello, this is your first JavaFX project - IPC");
     }
@@ -39,5 +39,17 @@ public class PaginaPrincipal implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void IniciarSesion(ActionEvent event) {
+    }
+
+    @FXML
+    private void GestionarReserva(ActionEvent event) {
+    }
+
+    @FXML
+    private void VerPistas(ActionEvent event) {
+    }
     
 }

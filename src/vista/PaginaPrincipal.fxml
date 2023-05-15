@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="321.0" prefWidth="373.0" spacing="12.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.FXMLDocumentController">
+<Pane focusTraversable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PaginaPrincipal">
    <children>
-        <Button fx:id="buttonClick" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonAction" prefHeight="66.0" prefWidth="158.0" text="Commit de Iván" />
-        <Label fx:id="labelMessage" lineSpacing="4.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" textAlignment="CENTER" wrapText="true" />
+      <ImageView fitHeight="525.0" fitWidth="699.0" pickOnBounds="true">
+         <image>
+            <Image url="@../imagenes/tenis_principal.jpg" />
+         </image>
+      </ImageView>
+      <HBox alignment="CENTER" layoutX="343.0" prefHeight="79.0" prefWidth="356.0">
+         <children>
+            <Button fx:id="iniciar" mnemonicParsing="false" onAction="#IniciarSesion" prefHeight="45.0" prefWidth="95.0" text="Iniciar Sesión">
+               <HBox.margin>
+                  <Insets left="5.0" right="15.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="reserva" mnemonicParsing="false" onAction="#GestionarReserva" prefHeight="45.0" prefWidth="118.0" text="Gestionar Reserva">
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="pistas" mnemonicParsing="false" onAction="#VerPistas" prefHeight="45.0" prefWidth="95.0" text="Ver Pistas">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></Button>
+         </children>
+      </HBox>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="329.0" prefHeight="196.0" prefWidth="375.0" text="CLUB DE TENIS" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="Roboto Condensed Bold" size="52.0" />
+         </font>
+      </Label>
    </children>
-</VBox>
+</Pane>
