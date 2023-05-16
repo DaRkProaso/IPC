@@ -6,12 +6,18 @@
 package controlador;
 
 import java.net.URL;
+import java.io.*;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import model.Club.*;
 
 /**
  *
@@ -33,7 +39,17 @@ public class PaginaPrincipal implements Initializable {
     }    
 
     @FXML
-    private void IniciarSesion(ActionEvent event) {
+    private void IniciarSesion(ActionEvent event) throws IOException{
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
+                    Parent root = cargador.load();
+                    //FXMLDocumentController x = cargador.getController();
+                    //x.initUser(cuenta, n);
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setTitle("Inicio de Sesión");
+                    stage.setScene(scene);
+                    iniciar.getScene().getWindow().hide();
+                    stage.show();
     }
 
     @FXML
