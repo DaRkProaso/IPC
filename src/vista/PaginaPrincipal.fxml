@@ -16,7 +16,7 @@
             <Image url="@../imagenes/tenis_principal.jpg" />
          </image>
       </ImageView>
-      <HBox alignment="CENTER" layoutX="343.0" prefHeight="79.0" prefWidth="356.0">
+      <HBox alignment="CENTER" layoutX="322.0" prefHeight="79.0" prefWidth="356.0">
          <children>
             <Button fx:id="iniciar" mnemonicParsing="false" onAction="#IniciarSesion" prefHeight="45.0" prefWidth="95.0" text="Iniciar Sesión">
                <HBox.margin>

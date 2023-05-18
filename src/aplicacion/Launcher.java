@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 
 public class Launcher extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         //======================================================================
@@ -29,7 +29,7 @@ public class Launcher extends Application {
         //     - se muestra el stage de manera no modal mediante el metodo show()
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Club De Tenis");
+        stage.setTitle("Club de Tenis ");
         stage.show();
     }
 

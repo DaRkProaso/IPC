@@ -42,12 +42,11 @@ public class PaginaPrincipal implements Initializable {
     private void IniciarSesion(ActionEvent event) throws IOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
                     Parent root = cargador.load();
-                    //FXMLDocumentController x = cargador.getController();
-                    //x.initUser(cuenta, n);
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setTitle("Inicio de Sesión");
                     stage.setScene(scene);
+                    stage.setResizable(false);
                     iniciar.getScene().getWindow().hide();
                     stage.show();
     }
