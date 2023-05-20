@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 
 public class Launcher extends Application {
@@ -27,9 +28,11 @@ public class Launcher extends Application {
         // 3- asiganación de la escena al Stage que recibe el metodo 
         //     - configuracion del stage
         //     - se muestra el stage de manera no modal mediante el metodo show()
+        Image image = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Club de Tenis ");
+        stage.setTitle("Club de Tenis");
         stage.show();
     }
 

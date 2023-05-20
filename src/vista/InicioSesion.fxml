@@ -29,29 +29,29 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label id="texto" alignment="CENTER" contentDisplay="CENTER" prefHeight="82.0" prefWidth="254.0" stylesheets="@../../resources/estilos.css" text="CLUB DE TENIS" textAlignment="CENTER" textFill="#fcff36" GridPane.halignment="CENTER">
+                  <Label id="texto" alignment="CENTER" contentDisplay="CENTER" prefHeight="82.0" prefWidth="254.0" stylesheets="@../estilos/estilos.css" text="CLUB DE TENIS" textAlignment="CENTER" textFill="#fcff36" GridPane.halignment="CENTER">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font></Label>
-                  <TextField id="inicio-field" fx:id="textFieldUsuario" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyEntered" prefHeight="38.0" prefWidth="255.0" promptText="Nombre de Usuario" stylesheets="@../recursos/avatares/estilos.css" GridPane.rowIndex="2">
+                  <TextField id="inicio-field" fx:id="textFieldUsuario" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyEntered" prefHeight="38.0" prefWidth="255.0" promptText="Nombre de Usuario" stylesheets="@../estilos/estilos.css" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="22.0" right="25.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label id="texto-segundo" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="322.0" stylesheets="@../../resources/estilos.css" text="INICIO DE SESIÓN" GridPane.rowIndex="1">
+                  <Label id="texto-segundo" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="322.0" stylesheets="@../estilos/estilos.css" text="INICIO DE SESIÓN" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font></Label>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                      <children>
                         <Label layoutX="106.0" layoutY="6.0" text="¿No tienes una cuenta?" />
-                        <Button id="registrarse-button" fx:id="registerButton" layoutX="24.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlePopupRegister" prefHeight="43.0" prefWidth="288.0" stylesheets="@../../resources/estilos.css" text="Registrarse" />
+                        <Button id="registrarse-button" fx:id="registerButton" layoutX="24.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlePopupRegister" prefHeight="43.0" prefWidth="288.0" stylesheets="@../estilos/estilos.css" text="Registrarse" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                      <children>
-                        <Button id="registrarse-button" fx:id="loginButton" layoutX="24.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleSesion" prefHeight="43.0" prefWidth="288.0" stylesheets="@../../resources/estilos.css" text="Iniciar Sesión" />
-                        <Label id="warning-text" fx:id="warningLabel" alignment="CENTER" layoutX="154.0" layoutY="-8.0" stylesheets="@../../resources/estilos.css" text="Label" textAlignment="CENTER" />
+                        <Button id="registrarse-button" fx:id="loginButton" layoutX="24.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleSesion" prefHeight="43.0" prefWidth="288.0" stylesheets="@../estilos/estilos.css" text="Iniciar Sesión" />
+                        <Label id="warning-text" fx:id="warningLabel" alignment="CENTER" layoutX="90.0" layoutY="-8.0" stylesheets="@../estilos/estilos.css" text="Label" textAlignment="CENTER" />
                      </children>
                   </Pane>
                   <PasswordField fx:id="passFieldPassword" prefHeight="38.0" prefWidth="255.0" promptText="Contraseña" GridPane.rowIndex="3">

@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -106,6 +107,8 @@ public class InicioSesionController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Club de Tenis " + club.getName());
             stage.setScene(scene);
+            Image image = new Image("/imagenes/Icono.png");
+            stage.getIcons().add(image);
             textFieldUsuario.getScene().getWindow().hide();
             stage.show();
         }

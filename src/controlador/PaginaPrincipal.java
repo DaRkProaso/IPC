@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.Club.*;
 
@@ -35,20 +36,22 @@ public class PaginaPrincipal implements Initializable {
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
 
     @FXML
     private void IniciarSesion(ActionEvent event) throws IOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
-                    Parent root = cargador.load();
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setTitle("Inicio de Sesión");
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    iniciar.getScene().getWindow().hide();
-                    stage.show();
+        Parent root = cargador.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Inicio de Sesión");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        Image image = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image);
+        iniciar.getScene().getWindow().hide();
+        stage.show();
     }
 
     @FXML

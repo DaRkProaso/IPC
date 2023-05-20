@@ -89,8 +89,6 @@ public class RegistroController implements Initializable {
 
     @FXML
     private void handleRegister(ActionEvent event) throws IOException, InterruptedException, ClubDAOException{
-        String tarjetacredito = "0";
-        int csv = 0;
         String nombre = textNombre.getText();
         String apellidos = textApellido.getText();
         String nickname = textNombreUsuario.getText();
@@ -115,24 +113,34 @@ public class RegistroController implements Initializable {
             warning.setText("Este telefono no es válido");
             return;
         }
-        tarjetacredito = textCredito.getText();
-        System.out.println(tarjetacredito);
+        String tarjetacredito = textCredito.getText();
         if(tarjetacredito.length() != 16 && tarjetacredito.length() != 0){
-            warning.setText("Este numero de tarjeta no es válido");
+            warning.setText("Este número de tarjeta no es válido");
             return;
         }
         try {
             Integer.parseInt(tarjetacredito);
         } catch (NumberFormatException excepcion) {
             if (tarjetacredito.length() != 0){
-                warning.setText("Este numero de tarjeta no es válido");
+                warning.setText("Este número de tarjeta no es válido");
                 return;
             }
         }
+        String csvT = textCSV.getText();
+        int csv = 0;
         try {
             csv = parseInt(textCSV.getText());
         } 
-        catch (NumberFormatException excepcion){}
+        catch (NumberFormatException excepcion){
+            if (csvT.length() != 3 && csvT.length() != 0){
+                warning.setText("El CSV no es correcto");
+                return;
+            }
+        }
+        if (csvT.length() == 3 && tarjetacredito.length() == 0){
+            warning.setText("Por favor proporcione un numero de tarjeta de credito");
+            return;
+        }
         
         if(nombre.length() == 0 || apellidos.length() == 0 || nickname.length() == 0){
             Alert alert = new Alert(AlertType.ERROR);
@@ -175,6 +183,8 @@ public class RegistroController implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            Image image = new Image("/imagenes/Icono.png");
+            stage.getIcons().add(image);
             stage.setTitle("Club de Tenis " + club.getName());
             stage.show();
             stage.setResizable(false);
