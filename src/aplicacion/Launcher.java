@@ -19,7 +19,7 @@ public class Launcher extends Application {
     public void start(Stage stage) throws Exception {
         //======================================================================
         // 1- creación del grafo de escena a partir del fichero FXML
-        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
+        FXMLLoader loader= new  FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
         Parent root = loader.load();
         //======================================================================
         // 2- creación de la escena con el nodo raiz del grafo de escena
@@ -32,7 +32,7 @@ public class Launcher extends Application {
         stage.getIcons().add(image);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Club de Tenis");
+        stage.setTitle("Iniciar Sesión");
         stage.show();
     }
 

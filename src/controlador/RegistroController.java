@@ -84,7 +84,7 @@ public class RegistroController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+       
     }
 
     @FXML
@@ -186,6 +186,7 @@ public class RegistroController implements Initializable {
             Image image = new Image("/imagenes/Icono.png");
             stage.getIcons().add(image);
             stage.setTitle("Club de Tenis " + club.getName());
+            textNombre.getScene().getWindow().hide();
             stage.show();
             stage.setResizable(false);
         }

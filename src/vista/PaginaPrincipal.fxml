@@ -16,13 +16,8 @@
             <Image url="@../imagenes/tenis_principal.jpg" />
          </image>
       </ImageView>
-      <HBox alignment="CENTER" layoutX="322.0" prefHeight="79.0" prefWidth="356.0">
+      <HBox alignment="CENTER" layoutX="408.0" prefHeight="79.0" prefWidth="270.0">
          <children>
-            <Button fx:id="iniciar" mnemonicParsing="false" onAction="#IniciarSesion" prefHeight="45.0" prefWidth="95.0" text="Iniciar Sesión">
-               <HBox.margin>
-                  <Insets left="5.0" right="15.0" />
-               </HBox.margin>
-            </Button>
             <Button fx:id="reserva" mnemonicParsing="false" onAction="#GestionarReserva" prefHeight="45.0" prefWidth="118.0" text="Gestionar Reserva">
                <HBox.margin>
                   <Insets right="15.0" />
@@ -34,7 +29,7 @@
                </HBox.margin></Button>
          </children>
       </HBox>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="329.0" prefHeight="196.0" prefWidth="375.0" text="CLUB DE TENIS" textAlignment="CENTER" textOverrun="CLIP">
+      <Label fx:id="nombreClub" alignment="CENTER" contentDisplay="CENTER" layoutY="329.0" prefHeight="196.0" prefWidth="375.0" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="Roboto Condensed Bold" size="52.0" />
          </font>

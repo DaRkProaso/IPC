@@ -29,37 +29,26 @@ import static model.Club.*;
  */
 public class PaginaPrincipal implements Initializable {
     @FXML
-    private Button iniciar;
-    @FXML
     private Button reserva;
     @FXML
     private Button pistas;
+    @FXML
+    private Label nombreClub;
       
     //=========================================================
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        
-    }    
-
-    @FXML
-    private void IniciarSesion(ActionEvent event) throws IOException{
-        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
-        Parent root = cargador.load();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setTitle("Inicio de Sesión");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        Image image = new Image("/imagenes/Icono.png");
-        stage.getIcons().add(image);
-        iniciar.getScene().getWindow().hide();
-        stage.show();
+        try{
+           Club club = getInstance();
+           nombreClub.setText("Club " + club.getName());
+        }
+       catch(ClubDAOException | IOException e){}
     }
-
+    
     @FXML
     private void GestionarReserva(ActionEvent event) throws IOException {
-        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/ReservarPista.fxml"));
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/ReservarPistas.fxml"));
         Parent root = cargador.load();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -68,7 +57,7 @@ public class PaginaPrincipal implements Initializable {
         stage.setResizable(false);
         Image image = new Image("/imagenes/Icono.png");
         stage.getIcons().add(image);
-        iniciar.getScene().getWindow().hide();
+        reserva.getScene().getWindow().hide();
         stage.show();
     }
 
