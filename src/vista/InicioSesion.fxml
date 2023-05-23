@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.InicioSesionController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.InicioSesionController">
    <children>
       <Pane>
          <children>
-            <GridPane id="grid-pane-b" prefHeight="500.0" prefWidth="335.0" stylesheets="@../estilos/estilos.css">
+            <GridPane id="grid-pane-b" prefHeight="539.0" prefWidth="335.0" stylesheets="@../estilos/estilos.css">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -27,9 +27,10 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label id="texto" alignment="CENTER" contentDisplay="CENTER" prefHeight="82.0" prefWidth="254.0" stylesheets="@../estilos/estilos.css" text="CLUB DE TENIS" textAlignment="CENTER" textFill="#fcff36" GridPane.halignment="CENTER">
+                  <Label id="texto" alignment="CENTER" contentDisplay="CENTER" prefHeight="82.0" prefWidth="254.0" stylesheets="@../estilos/estilos.css" text="CLUB DE TENIS" textAlignment="CENTER" textFill="#e8e826" GridPane.halignment="CENTER">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font></Label>
@@ -59,6 +60,11 @@
                         <Insets left="25.0" right="25.0" />
                      </GridPane.margin>
                   </PasswordField>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+                     <children>
+                        <Button fx:id="verPistas" layoutX="23.0" layoutY="13.0" mnemonicParsing="false" onAction="#verPistas" prefHeight="46.0" prefWidth="288.0" text="Ver Pistas" />
+                     </children>
+                  </Pane>
                </children>
             </GridPane>
          </children>

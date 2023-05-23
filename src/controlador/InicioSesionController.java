@@ -46,6 +46,8 @@ public class InicioSesionController implements Initializable {
     private Label warningLabel;
     @FXML
     private PasswordField passFieldPassword;
+    @FXML
+    private Button verPistas;
 
     /**
      * Initializes the controller class.
@@ -115,5 +117,20 @@ public class InicioSesionController implements Initializable {
         else if(textFieldUsuario.getText().equals("") || passFieldPassword.getText().equals("")) {
             warningLabel.setText("Por favor, rellene toda la información");
         } else {warningLabel.setText("Usuario o contraseña incorecta");}
+    }
+
+    @FXML
+    private void verPistas(ActionEvent event) throws IOException, ClubDAOException{
+        Club club = getInstance();
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
+        Parent root = cargador.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Club de Tenis " + club.getName());
+        stage.setScene(scene);
+        Image image = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image);
+        textFieldUsuario.getScene().getWindow().hide();
+        stage.show();
     }
 }
