@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,8 +14,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import model.*;
+import static model.Club.getInstance;
 
 /**
  * FXML Controller class
@@ -26,44 +32,35 @@ public class VistaPerfilController implements Initializable {
     @FXML
     private Label nicknameLabel;
     @FXML
-    private Label passwordLabel;
+    private ImageView imagePerfil;
     @FXML
-    private Label emailLabel;
+    private TextField nombreField;
     @FXML
-    private Label birthdateLabel;
+    private TextField apellidosField;
     @FXML
-    private Button buttonPassword;
+    private TextField telefonoField;
     @FXML
-    private Button buttonEmail;
+    private TextField creditoField;
     @FXML
-    private Button buttonBirthdate;
+    private TextField csvField;
     @FXML
-    private ChoiceBox<?> y;
-    @FXML
-    private ImageView imageAvatar;
+    private PasswordField passField;
+    
+    private Member member;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try{
+            Club club = getInstance();
+            member = club.getMemberByCredentials(nicknameLabel.getText(), passField.getText());
+            if (member.getImage() == null){
+                Image image = new Image("/imagenes/default.png");
+                imagePerfil.setImage(image);
+            }
+        }
+        catch(ClubDAOException | IOException e){}
     }    
-
-    @FXML
-    private void handleChangePassword(ActionEvent event) {
-    }
-
-    @FXML
-    private void handleChangeEmail(ActionEvent event) {
-    }
-
-    @FXML
-    private void handleChangeBirthdate(ActionEvent event) {
-    }
-
-    @FXML
-    private void handleImgChange(MouseEvent event) {
-    }
-    
 }

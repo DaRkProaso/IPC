@@ -2,10 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,7 +16,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../estilos/estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VistaPerfilController">
    <children>
-      <GridPane id="grid-pane-b" hgap="20.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../recursos/avatares/estilos.css" vgap="20.0">
+      <GridPane id="grid-pane-b" hgap="20.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../estilos/estilos.css" vgap="20.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -24,46 +24,53 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <padding>
             <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          <children>
-            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../resources/estilos.css" GridPane.rowSpan="2">
+            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" stylesheets="@../estilos/estilos.css" GridPane.rowSpan="2">
                <children>
-                  <BorderPane prefHeight="400.0" prefWidth="410.0">
+                  <BorderPane prefHeight="550.0" prefWidth="410.0">
                      <top>
-                        <Pane id="darker-pane-b" prefHeight="80.0" prefWidth="200.0" stylesheets="@../../resources/estilos.css" BorderPane.alignment="CENTER">
+                        <Pane id="darker-pane-b" prefHeight="80.0" prefWidth="200.0" stylesheets="@../estilos/estilos.css" BorderPane.alignment="CENTER">
                            <children>
                               <Text id="title-b" fill="WHITE" layoutX="53.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS DE TU CUENTA" />
                            </children>
                         </Pane>
                      </top>
                      <center>
-                        <GridPane BorderPane.alignment="CENTER">
+                        <GridPane prefHeight="302.0" prefWidth="350.0" BorderPane.alignment="CENTER">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.40003204345703" minWidth="10.0" prefWidth="173.40003204345703" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="114.40001220703127" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <BorderPane.margin>
                               <Insets bottom="50.0" left="30.0" right="30.0" top="50.0" />
                            </BorderPane.margin>
                            <children>
-                              <Label text="Nombre de Usuario:" />
-                              <Label text="Contraseña:" GridPane.rowIndex="1" />
-                              <Label text="Correo Electronico:" GridPane.rowIndex="2" />
-                              <Label text="Fecha de Nacimiento:" GridPane.rowIndex="3" />
-                              <Label fx:id="nicknameLabel" text="Label" GridPane.columnIndex="1" />
-                              <Label fx:id="passwordLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="emailLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="birthdateLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Nombre:" />
+                              <Label text="Contraseña:" GridPane.rowIndex="3" />
+                              <Label text="Teléfono:" GridPane.rowIndex="4" />
+                              <Label text="Tarjeta de crédito:" GridPane.rowIndex="5" />
+                              <Label text="Apellidos:" GridPane.rowIndex="1" />
+                              <Label text="Nombre de Usuario:" GridPane.rowIndex="2" />
+                              <Label fx:id="nicknameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="nombreField" GridPane.columnIndex="1" />
+                              <TextField fx:id="apellidosField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="telefonoField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="creditoField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="csvField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <PasswordField fx:id="passField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                      </center>
@@ -73,61 +80,31 @@
                   <DropShadow height="88.0" radius="43.5" width="88.0" />
                </effect>
             </Pane>
-            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../resources/estilos.css" GridPane.rowIndex="2">
+            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" stylesheets="@../estilos/estilos.css" GridPane.columnIndex="1" GridPane.rowSpan="2">
                <children>
-                  <GridPane hgap="10.0" prefHeight="130.0" prefWidth="410.0" vgap="10.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Button id="button-change" fx:id="buttonPassword" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="50.0" prefWidth="139.0" stylesheets="@../../resources/estilos.css" text="Contraseña" GridPane.rowIndex="1" />
-                        <Button id="button-change" fx:id="buttonEmail" mnemonicParsing="false" onAction="#handleChangeEmail" prefHeight="50.0" prefWidth="146.0" stylesheets="@../../resources/estilos.css" text="Correo Electronico" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button id="button-change" fx:id="buttonBirthdate" mnemonicParsing="false" onAction="#handleChangeBirthdate" prefHeight="50.0" prefWidth="137.0" stylesheets="@../../resources/estilos.css" text="Fecha de Nacimiento" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Text id="title-b" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20px;" text="selecciona aquel aspecto que quieras modificar" textAlignment="CENTER" wrappingWidth="385.33680725097656" GridPane.columnSpan="2147483647" />
-                     </children>
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding>
-                  </GridPane>
-               </children>
-               <effect>
-                  <DropShadow />
-               </effect></Pane>
-            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../resources/estilos.css" GridPane.columnIndex="1" GridPane.rowSpan="2">
-               <children>
-                  <BorderPane prefHeight="400.0" prefWidth="410.0" stylesheets="@../../resources/estilos.css">
+                  <BorderPane prefHeight="400.0" prefWidth="410.0" stylesheets="@../estilos/estilos.css">
                      <top>
-                        <Pane id="darker-pane-b" prefHeight="80.0" prefWidth="200.0" stylesheets="@../../resources/estilos.css" BorderPane.alignment="CENTER">
+                        <Pane id="darker-pane-b" prefHeight="80.0" prefWidth="200.0" stylesheets="@../estilos/estilos.css" BorderPane.alignment="CENTER">
                            <children>
-                              <Label id="title-b" layoutX="128.0" layoutY="18.0" stylesheets="@../../resources/estilos.css" text="TU AVATAR" />
+                              <Label id="title-b" layoutX="128.0" layoutY="18.0" stylesheets="@../estilos/estilos.css" text="TU AVATAR" />
                            </children>
                         </Pane>
                      </top>
                      <center>
                         <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <ChoiceBox id="choice-box1" fx:id="y" layoutX="153.0" layoutY="120.0" prefHeight="25.0" prefWidth="108.0" stylesheets="@../../resources/estilos.css" />
-                              <ImageView id="img" fx:id="imageAvatar" fitHeight="150.0" fitWidth="200.0" layoutX="144.0" layoutY="21.0" onMouseClicked="#handleImgChange" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../resources/avatars/default.png" />
-                                 </image>
-                              </ImageView>
+                              <ImageView fx:id="imagePerfil" fitHeight="319.0" fitWidth="410.0" layoutX="-1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
                      </center>
                   </BorderPane>
+                  <Button layoutX="267.0" layoutY="452.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Cambiar avatar" />
+                  <Button layoutX="49.0" layoutY="453.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="112.0" text="Guardar Ajustes" />
                </children>
                <effect>
                   <DropShadow height="88.0" radius="43.5" width="88.0" />
                </effect>
             </Pane>
-            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../resources/estilos.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
