@@ -14,7 +14,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ReservarPistasController">
    <children>
-      <DatePicker layoutX="164.0" layoutY="14.0" />
       <TabPane layoutY="48.0" prefHeight="533.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Pista 1">
@@ -23,7 +22,7 @@
                      <children>
                         <AnchorPane prefHeight="505.0" prefWidth="501.0">
                            <children>
-                              <GridPane layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
+                              <GridPane fx:id="grid1" layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="137.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="10.0" prefWidth="364.0" />
@@ -172,7 +171,7 @@
                      <children>
                         <AnchorPane prefHeight="505.0" prefWidth="501.0">
                            <children>
-                              <GridPane layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
+                              <GridPane fx:id="grid2" layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="137.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="10.0" prefWidth="364.0" />
@@ -321,7 +320,7 @@
                      <children>
                         <AnchorPane prefHeight="505.0" prefWidth="501.0">
                            <children>
-                              <GridPane layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
+                              <GridPane fx:id="grid3" layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="137.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="10.0" prefWidth="364.0" />
@@ -470,7 +469,7 @@
                      <children>
                         <AnchorPane prefHeight="505.0" prefWidth="501.0">
                            <children>
-                              <GridPane layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
+                              <GridPane fx:id="grid4" layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="137.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="10.0" prefWidth="364.0" />
@@ -619,7 +618,7 @@
                      <children>
                         <AnchorPane prefHeight="505.0" prefWidth="501.0">
                            <children>
-                              <GridPane layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
+                              <GridPane fx:id="grid5" layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="137.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="10.0" prefWidth="364.0" />
@@ -768,7 +767,7 @@
                      <children>
                         <AnchorPane prefHeight="505.0" prefWidth="501.0">
                            <children>
-                              <GridPane layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
+                              <GridPane fx:id="grid6" layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="137.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="10.0" prefWidth="364.0" />
@@ -914,5 +913,7 @@
         </tabs>
       </TabPane>
       <Button fx:id="volver" layoutX="412.0" layoutY="14.0" mnemonicParsing="false" onAction="#volverPrincipio" text="Volver" />
+      <DatePicker fx:id="day" layoutX="14.0" layoutY="14.0" />
+      <Label fx:id="fecha" layoutX="296.0" layoutY="18.0" />
    </children>
 </AnchorPane>
