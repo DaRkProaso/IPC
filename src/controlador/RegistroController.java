@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,9 +42,8 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javax.swing.JScrollPane;
-import model.Club;
+import model.*;
 import static model.Club.*;
-import model.ClubDAOException;
 
 /**
  * FXML Controller class
@@ -51,112 +51,109 @@ import model.ClubDAOException;
  * @author Andreu
  */
 public class RegistroController implements Initializable {
-
-    @FXML
-    private TextField textNombreUsuario;
-    @FXML
-    private TextField textNombre;
-    @FXML
-    private TextField textApellido;
-    @FXML
-    private PasswordField passContra;
-    @FXML
-    private PasswordField passRepContra;
-    @FXML
-    private TextField textTelefono;
-    @FXML
-    private TextField textCredito;
-    @FXML
-    private TextField textCSV;
-    @FXML
-    private Button regButton;
-    @FXML
-    private Button iniButton;
     
     private static final String PASSCHECK = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$";
     
     private static final Pattern PASSPATTERN= Pattern.compile(PASSCHECK);
     @FXML
-    private Text warning;
-
+    private TextField textFieldUsuario;
+    @FXML
+    private TextField nombreField;
+    @FXML
+    private TextField apellidosField;
+    @FXML
+    private Button loginPopupButton;
+    @FXML
+    private Button registerInputButton;
+    @FXML
+    private TextField textFieldTarjeta;
+    @FXML
+    private TextField textFieldCSV;
+    @FXML
+    private TextField textFieldTF;
+    @FXML
+    private Label warningPass;
+    @FXML
+    private Label telefonoWarning;
+    @FXML
+    private Label warningTarjeta;
+    @FXML
+    private PasswordField repContra;
+    @FXML
+    private PasswordField contra;
+    @FXML
+    private Label warning;
+    
+    private Member member;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+       registerInputButton.disableProperty().bind(Bindings.isEmpty(nombreField.textProperty()).or(Bindings.isEmpty(apellidosField.textProperty())).or(Bindings.isEmpty(contra.textProperty())).or(Bindings.isEmpty(repContra.textProperty())).or(Bindings.isEmpty(textFieldTF.textProperty())));
     }
 
     @FXML
     private void handleRegister(ActionEvent event) throws IOException, InterruptedException, ClubDAOException{
-        String nombre = textNombre.getText();
-        String apellidos = textApellido.getText();
-        String nickname = textNombreUsuario.getText();
-        String password = passContra.getText();
+        Club club = getInstance();
+        String nombre = nombreField.getText();
+        String apellidos = apellidosField.getText();
+        String nickname = textFieldUsuario.getText();
+        if(club.existsLogin(nickname)){
+            warning.setText("Este usuario ya esta registrado");
+        }
+        String password = contra.getText();
         if (!PASSPATTERN.matcher(password).matches()) {
-            warning.setText("La contraseña debe tener al menos una mayuscula y un numero, y 6 carácteres mínimos de longitud");
+            warningPass.setText("La contraseña debe contener 6 o más carácteres, formados de letras y números");
             return;
         }
-        if(!password.equals(passRepContra.getText())){
-            warning.setText("Las contraseñas no coinciden");
+        if(!password.equals(repContra.getText())){
+            warningPass.setText("Las contraseñas no coinciden");
             
             return;
         }
-        String telefono = textTelefono.getText();
+        String telefono = textFieldTF.getText();
         if(telefono.length() != 9){
-            warning.setText("Este telefono no es válido");
+            telefonoWarning.setText("Este telefono no es válido");
             return;
         }
         try {
             Integer.parseInt(telefono);
         } catch (NumberFormatException excepcion) {
-            warning.setText("Este telefono no es válido");
+            telefonoWarning.setText("Este telefono no es válido");
             return;
         }
-        String tarjetacredito = textCredito.getText();
-        if(tarjetacredito.length() != 16 && tarjetacredito.length() != 0){
-            warning.setText("Este número de tarjeta no es válido");
+        String tarjetacredito = textFieldTarjeta.getText();
+        if(tarjetacredito.length() == 16 && tarjetacredito.length() == 0){ 
+            warningTarjeta.setText("Este número de tarjeta no es válido");
             return;
         }
         try {
             Integer.parseInt(tarjetacredito);
         } catch (NumberFormatException excepcion) {
             if (tarjetacredito.length() != 0){
-                warning.setText("Este número de tarjeta no es válido");
+                warningTarjeta.setText("Este número de tarjeta no es válido");
                 return;
             }
         }
-        String csvT = textCSV.getText();
+        String csvT = textFieldCSV.getText();
         int csv = 0;
         try {
-            csv = parseInt(textCSV.getText());
+            csv = parseInt(textFieldCSV.getText());
         } 
         catch (NumberFormatException excepcion){
             if (csvT.length() != 3 && csvT.length() != 0){
-                warning.setText("El CSV no es correcto");
+                warningTarjeta.setText("El CSV no es correcto");
                 return;
             }
         }
         if (csvT.length() == 3 && tarjetacredito.length() == 0){
-            warning.setText("Por favor proporcione un numero de tarjeta de credito");
+            warningTarjeta.setText("Por favor proporcione un numero de tarjeta de credito");
             return;
         }
-        
-        if(nombre.length() == 0 || apellidos.length() == 0 || nickname.length() == 0){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setContentText("Los datos proporcionados no son correctos o contienen errores");
-            alert.showAndWait();
-            return;
-        }
-        
-        try {
-            Club club = getInstance();
-            club.registerMember(nombre, apellidos, telefono, nickname, password, tarjetacredito, csv, null);
-        }
-        catch (ClubDAOException exception){
-        }
-        
+        club.registerMember(nombre, apellidos, telefono, nickname, password, tarjetacredito, csv, null);
+        member = club.getMemberByCredentials(nickname, password);
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("AVISO");
         alert.setHeaderText("¿Quieres seleccionar tu foto de avatar ahora?");
@@ -164,29 +161,30 @@ public class RegistroController implements Initializable {
         
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK){
-               /* FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
-                Parent root = cargador.load();
-                VistaPerfilController perfil = cargador.getController();
-                Stage stage = new Stage();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Vista del perfil");
-                stage.showAndWait();
-                stage.setResizable(false); */
+            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
+            Parent root = cargador.load();
+            VistaPerfilController perfil = cargador.getController();
+            perfil.SetPerfil(nombre, apellidos, nickname, password, telefono, csvT);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            registerInputButton.getScene().getWindow().hide();
+            stage.setTitle("Vista del perfil");
+            stage.setResizable(false);
+            stage.show();
+                
         }
         else if(result.isPresent() && result.get() == ButtonType.CANCEL){
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
             Parent root = cargador.load();
             PaginaPrincipal inicial = cargador.getController();
-            
-            Club club = getInstance();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             Image image = new Image("/imagenes/Icono.png");
             stage.getIcons().add(image);
             stage.setTitle("Club de Tenis " + club.getName());
-            textNombre.getScene().getWindow().hide();
+            registerInputButton.getScene().getWindow().hide();
             stage.show();
             stage.setResizable(false);
         }
@@ -197,13 +195,14 @@ public class RegistroController implements Initializable {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
         Parent root = cargador.load();
         InicioSesionController login = cargador.getController();
-            
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        Image image = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image);
         stage.setTitle("Inicio de Sesión");
-        stage.show();
         stage.setResizable(false);
-        regButton.getScene().getWindow().hide();
+        loginPopupButton.getScene().getWindow().hide();
+        stage.show();
     }
 }

@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +28,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.*;
-import static model.Club.*;
+import static model.Club.getInstance;
 
 /**
  * FXML Controller class
@@ -48,23 +49,21 @@ public class InicioSesionController implements Initializable {
     private PasswordField passFieldPassword;
     @FXML
     private Button verPistas;
+    
+    private Member member;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         try{
             Club club = getInstance();
-        }catch(IOException e) {} catch (ClubDAOException ex) {
-            Logger.getLogger(InicioSesionController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        warningLabel.setText("");
-        while(textFieldUsuario == null && passFieldPassword == null){
-            loginButton.disableProperty();
-        }
-        
+        }catch(IOException | ClubDAOException e) {}
+        warningLabel.setText(""); 
+        loginButton.disableProperty().bind(Bindings.isEmpty(textFieldUsuario.textProperty()).or(Bindings.isEmpty(passFieldPassword.textProperty())));
     }    
 
     @FXML
@@ -72,10 +71,11 @@ public class InicioSesionController implements Initializable {
         if(textFieldUsuario.isFocused() && event.getCode() == KeyCode.ENTER){
             passFieldPassword.requestFocus();
         } else{
-        if(passFieldPassword.isFocused() && event.getCode() == KeyCode.ENTER){
-            if(!passFieldPassword.getText().equals("") && !textFieldUsuario.getText().equals("")){
-                handleSesion();}
-        }
+            if(passFieldPassword.isFocused() && event.getCode() == KeyCode.ENTER){
+                if(!passFieldPassword.getText().equals("") && !textFieldUsuario.getText().equals("")){
+                    handleSesion();
+                }
+            }
         }
     }
 
@@ -84,13 +84,15 @@ public class InicioSesionController implements Initializable {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/Registro.fxml"));
         Parent root = cargador.load();
         RegistroController register = cargador.getController();
-            
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            stage.setResizable(false);
-            passFieldPassword.getScene().getWindow().hide();        
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Crear nueva cuenta");
+        stage.setScene(scene);
+        Image image = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image);
+        stage.setResizable(false);
+        registerButton.getScene().getWindow().hide();
+        stage.show();
     }
 
     @FXML
@@ -99,10 +101,8 @@ public class InicioSesionController implements Initializable {
     }
     private void handleSesion() throws IOException, ClubDAOException {
         Club club = getInstance();
-        String usuario = textFieldUsuario.getText();
-        String contraseña = passFieldPassword.getText();
-        Member cuenta = club.getMemberByCredentials(usuario, contraseña);
-        if(cuenta != null){
+        member = club.getMemberByCredentials(textFieldUsuario.getText(), passFieldPassword.getText());
+        if(club.existsLogin(textFieldUsuario.getText())&& member.getPassword().equals(passFieldPassword.getText())){
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
             Parent root = cargador.load();
             Scene scene = new Scene(root);
@@ -111,12 +111,10 @@ public class InicioSesionController implements Initializable {
             stage.setScene(scene);
             Image image = new Image("/imagenes/Icono.png");
             stage.getIcons().add(image);
-            textFieldUsuario.getScene().getWindow().hide();
+            loginButton.getScene().getWindow().hide();
             stage.show();
         }
-        else if(textFieldUsuario.getText().equals("") || passFieldPassword.getText().equals("")) {
-            warningLabel.setText("Por favor, rellene toda la información");
-        } else {warningLabel.setText("Usuario o contraseña incorecta");}
+        else {warningLabel.setText("Usuario o contraseña incorecta");}
     }
 
     @FXML
@@ -130,7 +128,7 @@ public class InicioSesionController implements Initializable {
         stage.setScene(scene);
         Image image = new Image("/imagenes/Icono.png");
         stage.getIcons().add(image);
-        textFieldUsuario.getScene().getWindow().hide();
+        verPistas.getScene().getWindow().hide();
         stage.show();
     }
 }
