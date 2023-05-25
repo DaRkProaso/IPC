@@ -102,6 +102,10 @@ public class InicioSesionController implements Initializable {
     private void handleSesion() throws IOException, ClubDAOException {
         Club club = getInstance();
         member = club.getMemberByCredentials(textFieldUsuario.getText(), passFieldPassword.getText());
+        FXMLLoader cargador2 = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
+        Parent root2 = cargador2.load();
+        VistaPerfilController perfil = cargador2.getController();
+        perfil.SetPerfil(member.getName(),member.getSurname(),member.getNickName(),member.getPassword(),member.getTelephone(),member.getCreditCard(),member.getSvc(),member.getImage());
         if(club.existsLogin(textFieldUsuario.getText())&& member.getPassword().equals(passFieldPassword.getText())){
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
             Parent root = cargador.load();

@@ -164,7 +164,7 @@ public class RegistroController implements Initializable {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
             Parent root = cargador.load();
             VistaPerfilController perfil = cargador.getController();
-            perfil.SetPerfil(nombre, apellidos, nickname, password, telefono, csvT);
+            perfil.SetPerfil(member.getName(),member.getSurname(),member.getNickName(),member.getPassword(),member.getTelephone(),member.getCreditCard(),member.getSvc(),member.getImage());
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
