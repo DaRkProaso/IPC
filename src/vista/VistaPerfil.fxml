@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../recursos/avatares/estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VistaPerfilController">
+<Pane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../estilos/estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VistaPerfilController">
    <children>
-      <GridPane id="grid-pane-b" hgap="20.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../recursos/avatares/estilosTenis.css" vgap="20.0">
+      <GridPane id="grid-pane-b" hgap="20.0" prefHeight="600.0" prefWidth="900.0" vgap="20.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="526.0" minWidth="10.0" prefWidth="522.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="405.0" minWidth="10.0" prefWidth="298.0" />
@@ -30,11 +30,11 @@
             <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          <children>
-            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" stylesheets="@../recursos/avatares/estilosTenis.css" GridPane.rowSpan="2">
+            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="2">
                <children>
                   <BorderPane prefHeight="400.0" prefWidth="522.0">
                      <top>
-                        <Pane id="darker-pane-b" prefHeight="80.0" prefWidth="200.0" stylesheets="@../recursos/avatares/estilosTenis.css" BorderPane.alignment="CENTER">
+                        <Pane id="darker-pane-b" prefHeight="80.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
                               <Text id="title-b" fill="WHITE" layoutX="109.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATOS DE TU CUENTA" />
                            </children>
@@ -58,18 +58,18 @@
                               <Insets bottom="50.0" left="30.0" right="30.0" top="50.0" />
                            </BorderPane.margin>
                            <children>
-                              <Label id="label-text" stylesheets="@../recursos/avatares/estilosTenis.css" text="Nombre de Usuario:" />
-                              <Label id="label-text" stylesheets="@../recursos/avatares/estilosTenis.css" text="Contraseña:" GridPane.rowIndex="1" />
-                              <Label id="label-text" stylesheets="@../recursos/avatares/estilosTenis.css" text="Tarjeta de Credito" GridPane.rowIndex="2" />
-                              <Label id="label-text" stylesheets="@../recursos/avatares/estilosTenis.css" text="CSV:" GridPane.rowIndex="3" />
-                              <Label id="label-text" fx:id="nicknameLabel" stylesheets="@../recursos/avatares/estilosTenis.css" GridPane.columnIndex="1" />
-                              <Label id="label-text" fx:id="passwordLabel" stylesheets="@../recursos/avatares/estilosTenis.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label id="label-text" fx:id="tLabel" stylesheets="@../recursos/avatares/estilosTenis.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label id="label-text" fx:id="csvLabel" stylesheets="@../recursos/avatares/estilosTenis.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label id="label-text" stylesheets="@../recursos/avatares/estilosTenis.css" text="Nombre y Apellidos:" GridPane.rowIndex="4" />
-                              <Label id="label-text" fx:id="nombreLabel" stylesheets="@../recursos/avatares/estilosTenis.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label id="label-text" stylesheets="@../recursos/avatares/estilosTenis.css" text="Telefono:" GridPane.rowIndex="5" />
-                              <Label id="label-text" fx:id="telefonoLabel" stylesheets="@../recursos/avatares/estilosTenis.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label id="label-text" text="Nombre de Usuario:" />
+                              <Label id="label-text" text="Contraseña:" GridPane.rowIndex="1" />
+                              <Label id="label-text" text="Tarjeta de Credito" GridPane.rowIndex="2" />
+                              <Label id="label-text" text="CSV:" GridPane.rowIndex="3" />
+                              <Label id="label-text" fx:id="nicknameLabel" GridPane.columnIndex="1" />
+                              <Label id="label-text" fx:id="passwordLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label id="label-text" fx:id="tLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label id="label-text" fx:id="csvLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label id="label-text" text="Nombre y Apellidos:" GridPane.rowIndex="4" />
+                              <Label id="label-text" fx:id="nombreLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label id="label-text" text="Telefono:" GridPane.rowIndex="5" />
+                              <Label id="label-text" fx:id="telefonoLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                            </children>
                         </GridPane>
                      </center>
@@ -79,7 +79,7 @@
                   <DropShadow height="88.0" radius="43.5" width="88.0" />
                </effect>
             </Pane>
-            <Pane id="pane-b" prefHeight="130.0" prefWidth="833.0" stylesheets="@../recursos/avatares/estilos.css" GridPane.rowIndex="2">
+            <Pane id="pane-b" prefHeight="130.0" prefWidth="833.0" GridPane.rowIndex="2">
                <children>
                   <GridPane hgap="10.0" prefHeight="130.0" prefWidth="522.0" vgap="10.0">
                     <columnConstraints>
@@ -93,11 +93,11 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button id="button-change" fx:id="buttonPassword" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="50.0" prefWidth="139.0" stylesheets="@../recursos/avatares/estilosTenis.css" text="Contraseña" GridPane.rowIndex="1" />
-                        <Button id="button-change" fx:id="buttonTarjeta" mnemonicParsing="false" onAction="#handleChangeTarjeta" prefHeight="50.0" prefWidth="146.0" stylesheets="@../recursos/avatares/estilosTenis.css" text="T. Credito" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button id="button-change" fx:id="buttonNameSurname" mnemonicParsing="false" onAction="#handleChangeName" prefHeight="50.0" prefWidth="137.0" stylesheets="@../recursos/avatares/estilosTenis.css" text="Nombre y Apellidos" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Button id="button-change" fx:id="buttonPassword" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="50.0" prefWidth="139.0" text="Contraseña" GridPane.rowIndex="1" />
+                        <Button id="button-change" fx:id="buttonTarjeta" mnemonicParsing="false" onAction="#handleChangeTarjeta" prefHeight="50.0" prefWidth="146.0" text="T. Credito" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button id="button-change" fx:id="buttonNameSurname" mnemonicParsing="false" onAction="#handleChangeName" prefHeight="50.0" prefWidth="137.0" text="Nombre y Apellidos" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Text id="title-b" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20px;" text="selecciona aquel aspecto que quieras modificar" textAlignment="CENTER" wrappingWidth="385.33680725097656" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" />
-                        <Button id="button-change" fx:id="buttonTelefono" mnemonicParsing="false" onAction="#handleChangeTelefono" prefHeight="50.0" prefWidth="139.0" stylesheets="@../recursos/avatares/estilosTenis.css" text="Telefono" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Button id="button-change" fx:id="buttonTelefono" mnemonicParsing="false" onAction="#handleChangeTelefono" prefHeight="50.0" prefWidth="139.0" text="Telefono" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                      </children>
                      <padding>
                         <Insets left="10.0" right="10.0" />
@@ -107,23 +107,23 @@
                <effect>
                   <DropShadow />
                </effect></Pane>
-            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" stylesheets="@../recursos/avatares/estilosTenis.css" GridPane.columnIndex="1" GridPane.rowSpan="2">
+            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2">
                <children>
-                  <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="298.0" stylesheets="@../../resources/estilos.css">
+                  <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="298.0">
                      <top>
-                        <Pane id="darker-pane-b" prefHeight="80.0" prefWidth="323.0" stylesheets="@../recursos/avatares/estilosTenis.css" BorderPane.alignment="CENTER">
+                        <Pane id="darker-pane-b" prefHeight="80.0" prefWidth="323.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label id="title-b" layoutX="72.0" layoutY="18.0" stylesheets="@../../resources/estilos.css" text="TU AVATAR" />
+                              <Label id="title-b" layoutX="72.0" layoutY="18.0" text="TU AVATAR" />
                            </children>
                         </Pane>
                      </top>
                      <center>
-                        <Pane prefHeight="320.0" prefWidth="366.0" stylesheets="@../recursos/avatares/estilos.css" BorderPane.alignment="CENTER">
+                        <Pane prefHeight="230.0" prefWidth="289.0" BorderPane.alignment="CENTER">
                            <children>
-                              <ChoiceBox id="choice-box1" fx:id="y" layoutX="153.0" layoutY="120.0" prefHeight="25.0" prefWidth="108.0" stylesheets="@../../resources/estilos.css" />
-                              <ImageView id="img" fx:id="imageAvatar" fitHeight="150.0" fitWidth="200.0" layoutX="144.0" layoutY="21.0" onMouseClicked="#handleImgChange" pickOnBounds="true" preserveRatio="true">
+                              <ChoiceBox id="choice-box1" fx:id="imageBox" layoutX="90.0" layoutY="253.0" prefHeight="33.0" prefWidth="118.0" />
+                              <ImageView fx:id="imageAvatar" fitHeight="220.0" fitWidth="196.0" layoutX="57.0" layoutY="14.0" onMouseClicked="#handleImgChange" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../resources/avatars/default.png" />
+                                    <Image url="@../imagenes/avatars/default.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -135,7 +135,10 @@
                   <DropShadow height="88.0" radius="43.5" width="88.0" />
                </effect>
             </Pane>
-            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" stylesheets="@../recursos/avatares/estilosTenis.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Button id="button-change" fx:id="buttonExit" layoutX="177.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="53.0" prefWidth="107.0" text="Salir y guardar cambios" textAlignment="CENTER" wrapText="true" />
+               </children></Pane>
          </children>
       </GridPane>
    </children>
