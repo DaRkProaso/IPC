@@ -48,8 +48,8 @@
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                      <children>
-                        <PasswordField fx:id="repContra" layoutX="24.0" layoutY="57.0" prefHeight="36.0" prefWidth="259.0" promptText="Repetir Contraseña*" />
-                        <PasswordField fx:id="contra" layoutX="24.0" layoutY="3.0" prefHeight="36.0" prefWidth="259.0" promptText="Contraseña*" />
+                        <PasswordField fx:id="contra" layoutX="24.0" prefHeight="36.0" prefWidth="259.0" promptText="Contraseña*" />
+                        <PasswordField fx:id="repContra" layoutX="24.0" layoutY="52.0" prefHeight="36.0" prefWidth="259.0" promptText="Repetir Contraseña*" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">

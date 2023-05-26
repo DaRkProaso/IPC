@@ -17,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Club;
 import model.*;
@@ -29,23 +31,28 @@ import static model.Club.*;
  */
 public class PaginaPrincipal implements Initializable {
     @FXML
-    private Button reserva;
-    @FXML
-    private Button pistas;
-    @FXML
     private Label nombreClub;
-      
+    @FXML
+    private ImageView imagePerfil;
+    @FXML
+    private Label labelPerfil;
+    @FXML
+    private Button reservas;
+    @FXML
+    private Button gestionar;
+    
+    private Club clubP;
+    
+    private Member member;
+    
+    private Image image;
+    
+    private String nickname;
     //=========================================================
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        try{
-           Club club = getInstance();
-           nombreClub.setText("Club " + club.getName());
-        }
-       catch(ClubDAOException | IOException e){}
-    }
-    
+    } 
     @FXML
     private void GestionarReserva(ActionEvent event) throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/ReservarPistas.fxml"));
@@ -55,25 +62,44 @@ public class PaginaPrincipal implements Initializable {
         stage.setTitle("Reservar/Anular pista");
         stage.setScene(scene);
         stage.setResizable(false);
-        Image image = new Image("/imagenes/Icono.png");
-        stage.getIcons().add(image);
-        reserva.getScene().getWindow().hide();
+        Image image2 = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image2);
+        gestionar.getScene().getWindow().hide();
         stage.show();
     }
 
     @FXML
-    private void VerPistas(ActionEvent event) throws IOException{
-        FXMLLoader cargapistas = new FXMLLoader(getClass().getResource("/vista/VerPistas.fxml"));
-        Parent root = cargapistas.load();
-        Scene scene = new Scene(root);
+    private void VerReservas(ActionEvent event) throws IOException{
+
+    }
+    public void GetProfile(String nickname, String password, Club club){
+        member = club.getMemberByCredentials(nickname, password);
+        if(member.getImage() == null){
+            image = new Image ("/imagenes/avatars/default.png");
+        }
+        else {image = member.getImage();}
+        this.nickname = nickname;
+        clubP = club;
+        GetProfile();
+}
+    private void GetProfile(){
+        imagePerfil.setImage(image);
+        labelPerfil.setText("Hola, " + nickname);
+        nombreClub.setText(clubP.getName());
+    }
+
+    @FXML
+    private void ModPerfil(MouseEvent event) throws IOException {
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
+        Parent root = cargador.load();
+        VistaPerfilController perfil = cargador.getController();
+        //perfil.SetPerfil(member);
         Stage stage = new Stage();
-        stage.setTitle("Visiualización de pistas disponibles");
+        Scene scene = new Scene(root);
         stage.setScene(scene);
+        reservas.getScene().getWindow().hide();
+        stage.setTitle("Vista del perfil");
         stage.setResizable(false);
-        Image image = new Image("/imagenes/Icono.png");
-        stage.getIcons().add(image);
-        pistas.getScene().getWindow().hide();
         stage.show();
     }
-    
 }

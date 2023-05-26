@@ -8,9 +8,7 @@ package controlador;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,13 +19,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import model.*;
 import static model.Club.getInstance;
 
@@ -64,26 +62,25 @@ public class VistaPerfilController implements Initializable {
     private ImageView imageAvatar;
     @FXML
     private Label nicknameLabel;
-    
-    private Club club;
     @FXML
     private Button buttonNameSurname;
     @FXML
     private ChoiceBox<Image> imageBox;
     @FXML
     private Button buttonExit;
+    @FXML
+    private Button buttonImage;
+    
+    private Stage stage;
+    
+    private Club clubV;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SetPerfil();
-        try{
-            club = getInstance();
-        } catch(ClubDAOException | IOException e){}
         passwordLabel.setText("··········");
-        member = club.getMemberByCredentials(nickname, password);
     }    
 
     @FXML
@@ -111,7 +108,6 @@ public class VistaPerfilController implements Initializable {
             alert.showAndWait();
         }
         password = dialog.getResult();
-        member.setPassword(password);
     }
 
     @FXML
@@ -127,6 +123,7 @@ public class VistaPerfilController implements Initializable {
             alert.setHeaderText("Ha introducido una tarjeta no válida");
             alert.setContentText("Por favor, introduzca una tarjeta válida");
             alert.showAndWait();
+            return;
         }
         TextInputDialog dialog2 = new TextInputDialog("");
         dialog2.setTitle("Actualizar CSV");
@@ -139,13 +136,12 @@ public class VistaPerfilController implements Initializable {
             alert.setHeaderText("Ha introducido un CSV no valido");
             alert.setContentText("Por favor, introduzca un CSV valido");
             alert.showAndWait();
+            return;
         }
         tarjeta = dialog.getResult();
         csv = parseInt(dialog2.getResult());
         tLabel.setText(tarjeta);
         csvLabel.setText(Integer.toString(csv));
-        member.setCreditCard(tarjeta);
-        member.setSvc(csv);
     }
 
     @FXML
@@ -163,8 +159,6 @@ public class VistaPerfilController implements Initializable {
         nombre = dialog.getResult();
         apellidos = dialog2.getResult();
         nombreLabel.setText(nombre + " "+ apellidos);
-        member.setName(nombre);
-        member.setSurname(apellidos);
     }
 
     @FXML
@@ -183,48 +177,55 @@ public class VistaPerfilController implements Initializable {
         }
         telefono = dialog.getResult();
         telefonoLabel.setText(telefono);
-        member.setTelephone(telefono);
     }
 
     @FXML
     private void handleImgChange(MouseEvent event) {
         
     }
+    
     private void SetPerfil(){
-        nombreLabel.setText(nombre + " " + apellidos);
-        nicknameLabel.setText(nickname);
-        telefonoLabel.setText(telefono);
-        tLabel.setText(tarjeta);
-        csvLabel.setText(Integer.toString(csv));
-        if (image == null){
-            Image image2 = new Image("/imagenes/default.png");
-            imageAvatar.setImage(image2);
+        nombreLabel.setText(member.getName() + " " + member.getSurname());
+        nicknameLabel.setText(member.getNickName());
+        telefonoLabel.setText(member.getTelephone());
+        tLabel.setText(member.getCreditCard());
+        csvLabel.setText(Integer.toString(member.getSvc()));
+        if (member.getImage() == null){
+            imageAvatar.setImage(new Image ("/imagenes/avatars/default.png"));
         }
-        else{imageAvatar.setImage(image);}
-    }    
-    public void SetPerfil(String nombre, String apellidos, String nickname, String password, String telefono, String tarjeta, int csv, Image image){
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.nickname = nickname;
-        this.password = password;
-        this.telefono = telefono;
-        this.tarjeta = tarjeta;
-        this.csv = csv;
-        this.image = image;
+        else{imageAvatar.setImage(member.getImage());
+        }
+    } 
+    public void SetPerfil(String nickname, String password, Club club){
+        member = club.getMemberByCredentials(nickname, password);
+        clubV = club;
+        SetPerfil();
     }
 
     @FXML
     private void handleExit(ActionEvent event) throws IOException{
+        member.setTelephone(telefono);
+        member.setName(nombre);
+        member.setSurname(apellidos);
+        member.setCreditCard(tarjeta);
+        member.setSvc(csv);
+        member.setPassword(password);
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
         Parent root = cargador.load();
-        Stage stage = new Stage();
+        PaginaPrincipal pagprin = cargador.getController();
+        pagprin.GetProfile(nickname, password, clubV);
+        Stage stage2 = new Stage();
         Scene scene = new Scene(root);
-        stage.setScene(scene);
+        stage2.setScene(scene);
         Image image2 = new Image("/imagenes/Icono.png");
-        stage.getIcons().add(image2);
-        stage.setTitle("Club de Tenis " + club.getName());
-        stage.setResizable(false);
+        stage2.getIcons().add(image2);
+        stage2.setTitle("Club de Tenis GreenBall");
+        stage2.setResizable(false);
         buttonExit.getScene().getWindow().hide();
-        stage.show();
+        stage2.show();
+    }
+
+    @FXML
+    private void handleImgChange(ActionEvent event) {
     }
 }

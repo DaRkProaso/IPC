@@ -11,19 +11,19 @@
 
 <Pane focusTraversable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PaginaPrincipal">
    <children>
-      <ImageView fitHeight="525.0" fitWidth="699.0" pickOnBounds="true">
+      <ImageView fitHeight="525.0" fitWidth="699.0" onMouseClicked="#ModPerfil" pickOnBounds="true">
          <image>
             <Image url="@../imagenes/tenis_principal.jpg" />
          </image>
       </ImageView>
       <HBox alignment="CENTER" layoutX="408.0" prefHeight="79.0" prefWidth="270.0">
          <children>
-            <Button fx:id="reserva" mnemonicParsing="false" onAction="#GestionarReserva" prefHeight="45.0" prefWidth="118.0" text="Gestionar Reserva">
+            <Button fx:id="gestionar" mnemonicParsing="false" onAction="#GestionarReserva" prefHeight="45.0" prefWidth="118.0" text="Gestionar Reserva">
                <HBox.margin>
                   <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="pistas" mnemonicParsing="false" onAction="#VerPistas" prefHeight="45.0" prefWidth="95.0" text="Ver Pistas">
+            <Button fx:id="reservas" mnemonicParsing="false" onAction="#VerReservas" prefHeight="45.0" prefWidth="95.0" text="Ver Reservas">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin></Button>
@@ -34,5 +34,7 @@
             <Font name="Roboto Condensed Bold" size="52.0" />
          </font>
       </Label>
+      <ImageView fx:id="imagePerfil" fitHeight="94.0" fitWidth="101.0" onMouseClicked="#ModPerfil" pickOnBounds="true" />
+      <Label fx:id="labelPerfil" layoutX="110.0" layoutY="40.0" />
    </children>
 </Pane>

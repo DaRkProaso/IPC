@@ -51,6 +51,8 @@ public class InicioSesionController implements Initializable {
     private Button verPistas;
     
     private Member member;
+    
+    private Club club;
 
     /**
      * Initializes the controller class.
@@ -60,7 +62,8 @@ public class InicioSesionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try{
-            Club club = getInstance();
+            club = getInstance();
+            
         }catch(IOException | ClubDAOException e) {}
         warningLabel.setText(""); 
         loginButton.disableProperty().bind(Bindings.isEmpty(textFieldUsuario.textProperty()).or(Bindings.isEmpty(passFieldPassword.textProperty())));
@@ -100,15 +103,16 @@ public class InicioSesionController implements Initializable {
         handleSesion();
     }
     private void handleSesion() throws IOException, ClubDAOException {
-        Club club = getInstance();
+        if (!club.existsLogin(textFieldUsuario.getText())){
+            warningLabel.setText("Usuario no existente");
+            return;
+        }
         member = club.getMemberByCredentials(textFieldUsuario.getText(), passFieldPassword.getText());
-        FXMLLoader cargador2 = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
-        Parent root2 = cargador2.load();
-        VistaPerfilController perfil = cargador2.getController();
-        perfil.SetPerfil(member.getName(),member.getSurname(),member.getNickName(),member.getPassword(),member.getTelephone(),member.getCreditCard(),member.getSvc(),member.getImage());
-        if(club.existsLogin(textFieldUsuario.getText())&& member.getPassword().equals(passFieldPassword.getText())){
+        if(member != null){
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
             Parent root = cargador.load();
+            PaginaPrincipal pagprin = cargador.getController();
+            pagprin.GetProfile(textFieldUsuario.getText(), passFieldPassword.getText(), club);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("Club de Tenis " + club.getName());
@@ -123,8 +127,7 @@ public class InicioSesionController implements Initializable {
 
     @FXML
     private void verPistas(ActionEvent event) throws IOException, ClubDAOException{
-        Club club = getInstance();
-        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VerPistas.fxml"));
         Parent root = cargador.load();
         Scene scene = new Scene(root);
         Stage stage = new Stage();

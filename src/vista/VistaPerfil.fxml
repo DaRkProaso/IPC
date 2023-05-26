@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -121,11 +120,7 @@
                         <Pane prefHeight="230.0" prefWidth="289.0" BorderPane.alignment="CENTER">
                            <children>
                               <ChoiceBox id="choice-box1" fx:id="imageBox" layoutX="90.0" layoutY="253.0" prefHeight="33.0" prefWidth="118.0" />
-                              <ImageView fx:id="imageAvatar" fitHeight="220.0" fitWidth="196.0" layoutX="57.0" layoutY="14.0" onMouseClicked="#handleImgChange" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../imagenes/avatars/default.png" />
-                                 </image>
-                              </ImageView>
+                              <ImageView fx:id="imageAvatar" fitHeight="220.0" fitWidth="196.0" layoutX="57.0" layoutY="14.0" onMouseClicked="#handleImgChange" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
                      </center>
@@ -137,7 +132,8 @@
             </Pane>
             <Pane id="pane-b" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button id="button-change" fx:id="buttonExit" layoutX="177.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="53.0" prefWidth="107.0" text="Salir y guardar cambios" textAlignment="CENTER" wrapText="true" />
+                  <Button id="button-change" fx:id="buttonExit" layoutX="177.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" prefWidth="107.0" text="Salir y guardar cambios" textAlignment="CENTER" wrapText="true" />
+                  <Button id="button-change" fx:id="buttonImage" layoutX="31.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleImgChange" prefHeight="50.0" prefWidth="118.0" text="Cambiar Imagen" />
                </children></Pane>
          </children>
       </GridPane>

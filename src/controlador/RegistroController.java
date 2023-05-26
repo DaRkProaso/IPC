@@ -86,17 +86,22 @@ public class RegistroController implements Initializable {
     
     private Member member;
     
+    private Club club;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try{
+            club = getInstance();
+        }
+        catch(IOException | ClubDAOException e){}
        registerInputButton.disableProperty().bind(Bindings.isEmpty(nombreField.textProperty()).or(Bindings.isEmpty(apellidosField.textProperty())).or(Bindings.isEmpty(contra.textProperty())).or(Bindings.isEmpty(repContra.textProperty())).or(Bindings.isEmpty(textFieldTF.textProperty())));
     }
 
     @FXML
     private void handleRegister(ActionEvent event) throws IOException, InterruptedException, ClubDAOException{
-        Club club = getInstance();
         String nombre = nombreField.getText();
         String apellidos = apellidosField.getText();
         String nickname = textFieldUsuario.getText();
@@ -153,7 +158,6 @@ public class RegistroController implements Initializable {
             return;
         }
         club.registerMember(nombre, apellidos, telefono, nickname, password, tarjetacredito, csv, null);
-        member = club.getMemberByCredentials(nickname, password);
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("AVISO");
         alert.setHeaderText("¿Quieres seleccionar tu foto de avatar ahora?");
@@ -164,7 +168,7 @@ public class RegistroController implements Initializable {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
             Parent root = cargador.load();
             VistaPerfilController perfil = cargador.getController();
-            perfil.SetPerfil(member.getName(),member.getSurname(),member.getNickName(),member.getPassword(),member.getTelephone(),member.getCreditCard(),member.getSvc(),member.getImage());
+            perfil.SetPerfil(nickname, password, club);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -172,12 +176,13 @@ public class RegistroController implements Initializable {
             stage.setTitle("Vista del perfil");
             stage.setResizable(false);
             stage.show();
-                
         }
         else if(result.isPresent() && result.get() == ButtonType.CANCEL){
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
             Parent root = cargador.load();
-            PaginaPrincipal inicial = cargador.getController();
+            PaginaPrincipal pagprin = cargador.getController();
+            System.out.println(nickname +" "+ password +" "+ club);
+            pagprin.GetProfile(nickname, password, club);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -194,7 +199,6 @@ public class RegistroController implements Initializable {
     private void handleInicioSesion(ActionEvent event) throws IOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
         Parent root = cargador.load();
-        InicioSesionController login = cargador.getController();
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
