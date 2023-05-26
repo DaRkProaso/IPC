@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ReservarPistasController">
+<AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="501.0" stylesheets="@../estilos/ReservaPistas.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ReservarPistasController">
    <children>
-      <TabPane layoutY="48.0" prefHeight="533.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabulador" layoutY="48.0" prefHeight="533.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Pista 1">
                <content>
@@ -22,7 +22,7 @@
                      <children>
                         <AnchorPane prefHeight="505.0" prefWidth="501.0">
                            <children>
-                              <GridPane fx:id="grid1" layoutY="14.0" prefHeight="490.0" prefWidth="501.0">
+                              <GridPane fx:id="grid1" layoutY="14.0" prefHeight="490.0" prefWidth="501.0" stylesheets="@../estilos/ReservaPistas.css">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="137.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="364.0" minWidth="10.0" prefWidth="364.0" />
