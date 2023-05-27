@@ -64,25 +64,7 @@ public class PaginaPrincipal implements Initializable {
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        
-        try{
-            clubP = getInstance();
-        }catch(IOException | ClubDAOException e){}
-        
-        List<Booking> reservasUsuario = clubP.getUserBookings(member.getNickName());
-        ArrayList<Booking> misReservas = new ArrayList<>(reservasUsuario);
-        
-        // Creamos la lista observable mediante un metodo de FXCollections
-        listaObservable = FXCollections.observableArrayList(misReservas);
-        
-        // Vinculamos la lista observables de personas con el ListView
-        reservasListView.setItems(listaObservable);   
-        
-        // Mantener invisible el ListView hasta que se pulse el botón de "Ver Reservas"
         reservasListView.setVisible(false);
-        
-        // Hay que modificar CellFactory para mostrar el objeto Persona
-        reservasListView.setCellFactory(c -> new BookingListCell());
     } 
     
     @FXML
@@ -105,6 +87,11 @@ public class PaginaPrincipal implements Initializable {
     @FXML
     private void VerReservas(ActionEvent event) throws IOException{
         reservasListView.setVisible(true);
+        List<Booking> reservasUsuario = clubP.getUserBookings(member.getNickName());
+        ArrayList<Booking> misReservas = new ArrayList<>(reservasUsuario);
+        listaObservable = FXCollections.observableArrayList(misReservas);
+        reservasListView.setItems(listaObservable);
+        reservasListView.setCellFactory(c -> new BookingListCell());
     }
     
     class BookingListCell extends ListCell<Booking>{
@@ -116,7 +103,7 @@ public class PaginaPrincipal implements Initializable {
         } 
     }
     
-    public void GetProfile(String nickname, String password){
+    public void GetProfile(String nickname, String password, Club club){
         member = clubP.getMemberByCredentials(nickname, password);
         if(member.getImage() == null){
             image = new Image ("/imagenes/avatars/default.png");
@@ -124,6 +111,13 @@ public class PaginaPrincipal implements Initializable {
         else {image = member.getImage();}
         this.nickname = nickname;
         this.password = password;
+<<<<<<< HEAD
+=======
+        clubP = club;
+        GetProfile();
+}
+    private void GetProfile(){
+>>>>>>> 12356517397f8df74a320bc808ac4231be2808f9
         imagePerfil.setImage(image);
         labelPerfil.setText("Hola, " + nickname);
         nombreClub.setText(clubP.getName());
@@ -131,6 +125,7 @@ public class PaginaPrincipal implements Initializable {
 
     @FXML
     private void ModPerfil(MouseEvent event) throws IOException {
+<<<<<<< HEAD
         try{
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
             Parent root = cargador.load();
@@ -145,5 +140,20 @@ public class PaginaPrincipal implements Initializable {
             stage.show();
         } catch (ClubDAOException e) {}
         
+=======
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
+        Parent root = cargador.load();
+        VistaPerfilController perfil = cargador.getController();
+        perfil.SetPerfil(nickname, password, clubP);
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        reservas.getScene().getWindow().hide();
+        stage.setTitle("Vista del perfil");
+        Image image2 = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image2);
+        stage.setResizable(false);
+        stage.show();
+>>>>>>> 12356517397f8df74a320bc808ac4231be2808f9
     }
 }

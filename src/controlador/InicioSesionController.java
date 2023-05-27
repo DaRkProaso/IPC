@@ -110,7 +110,7 @@ public class InicioSesionController implements Initializable {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
             Parent root = cargador.load();
             PaginaPrincipal pagprin = cargador.getController();
-            pagprin.GetProfile(textFieldUsuario.getText(), passFieldPassword.getText());
+            pagprin.GetProfile(textFieldUsuario.getText(), passFieldPassword.getText(), club);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("Club de Tenis " + club.getName());

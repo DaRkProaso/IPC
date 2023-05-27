@@ -130,7 +130,7 @@ public class RegistroController implements Initializable {
             return;
         }
         String tarjetacredito = textFieldTarjeta.getText();
-        if((tarjetacredito.length() != 16 || tarjetacredito.length() != 0) && !tarjetacredito.matches("\\d+")){ 
+        if((tarjetacredito.length() != 16 || tarjetacredito.length() != 0) || !tarjetacredito.matches("\\d+")){ 
             warningTarjeta.setText("Este número de tarjeta no es válido");
             return;
         }
@@ -177,7 +177,7 @@ public class RegistroController implements Initializable {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
             Parent root = cargador.load();
             PaginaPrincipal pagprin = cargador.getController();
-            pagprin.GetProfile(nickname, password);
+            pagprin.GetProfile(nickname, password, club);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
