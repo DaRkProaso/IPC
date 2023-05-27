@@ -52,9 +52,7 @@ public class PaginaPrincipal implements Initializable {
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        if (member != null){
-            GetProfile();
-        }
+        
     } 
     @FXML
     private void GestionarReserva(ActionEvent event) throws IOException {

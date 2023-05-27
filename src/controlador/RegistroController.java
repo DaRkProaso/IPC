@@ -130,17 +130,9 @@ public class RegistroController implements Initializable {
             return;
         }
         String tarjetacredito = textFieldTarjeta.getText();
-        if(tarjetacredito.length() == 16 && tarjetacredito.length() == 0){ 
+        if((tarjetacredito.length() != 16 || tarjetacredito.length() != 0) && !tarjetacredito.matches("\\d+")){ 
             warningTarjeta.setText("Este número de tarjeta no es válido");
             return;
-        }
-        try {
-            Integer.parseInt(tarjetacredito);
-        } catch (NumberFormatException excepcion) {
-            if (tarjetacredito.length() != 0){
-                warningTarjeta.setText("Este número de tarjeta no es válido");
-                return;
-            }
         }
         String csvT = textFieldCSV.getText();
         int csv = 0;
@@ -155,6 +147,10 @@ public class RegistroController implements Initializable {
         }
         if (csvT.length() == 3 && tarjetacredito.length() == 0){
             warningTarjeta.setText("Por favor proporcione un numero de tarjeta de credito");
+            return;
+        }
+        else if (tarjetacredito.length() == 16 && csvT.length() == 0){
+            warningTarjeta.setText("Por favor proporcione el CSV de su tarjeta de crédito");
             return;
         }
         club.registerMember(nombre, apellidos, telefono, nickname, password, tarjetacredito, csv, null);
@@ -181,7 +177,6 @@ public class RegistroController implements Initializable {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
             Parent root = cargador.load();
             PaginaPrincipal pagprin = cargador.getController();
-            System.out.println(nickname +" "+ password +" "+ club);
             pagprin.GetProfile(nickname, password, club);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
