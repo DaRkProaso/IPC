@@ -80,6 +80,8 @@ public class ReservarPistasController implements Initializable {
     
     private Member member;
     
+    private String nickname, password;
+    
     private final LocalTime firstSlotStart = LocalTime.of(9, 0);
     private final Duration slotLength = Duration.ofMinutes(60);
     private final LocalTime lastSlotStart = LocalTime.of(21, 0);
@@ -181,6 +183,8 @@ public class ReservarPistasController implements Initializable {
     private void volverPrincipio(ActionEvent event) throws IOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
         Parent root = cargador.load();
+        PaginaPrincipal pagprin = cargador.getController();
+        pagprin.GetProfile(nickname, password, clubR);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setTitle("Club de Tenis GreenBall");
@@ -244,9 +248,14 @@ public class ReservarPistasController implements Initializable {
             return view;
         }
     }
+    private void GetDatos(){
+        nickname = member.getNickName();
+        password = member.getPassword();
+    }
     
     public void GetDatos(String nickname, String password, Club club){
         member = club.getMemberByCredentials(nickname, password);
         clubR = club;
+        GetDatos();
     }
 }

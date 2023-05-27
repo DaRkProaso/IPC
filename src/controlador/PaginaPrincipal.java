@@ -47,16 +47,21 @@ public class PaginaPrincipal implements Initializable {
     
     private Image image;
     
-    private String nickname;
+    private String nickname, password;
     //=========================================================
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb){
+        if (member != null){
+            GetProfile();
+        }
     } 
     @FXML
     private void GestionarReserva(ActionEvent event) throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/ReservarPistas.fxml"));
         Parent root = cargador.load();
+        ReservarPistasController respis = cargador.getController();
+        respis.GetDatos(nickname, password, clubP);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setTitle("Reservar/Anular pista");
@@ -79,6 +84,7 @@ public class PaginaPrincipal implements Initializable {
         }
         else {image = member.getImage();}
         this.nickname = nickname;
+        this.password = password;
         clubP = club;
         GetProfile();
 }
@@ -93,7 +99,7 @@ public class PaginaPrincipal implements Initializable {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
         Parent root = cargador.load();
         VistaPerfilController perfil = cargador.getController();
-        //perfil.SetPerfil(member);
+        perfil.SetPerfil(nickname, password, clubP);
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);

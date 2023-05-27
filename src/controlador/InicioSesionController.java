@@ -63,7 +63,6 @@ public class InicioSesionController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try{
             club = getInstance();
-            
         }catch(IOException | ClubDAOException e) {}
         warningLabel.setText(""); 
         loginButton.disableProperty().bind(Bindings.isEmpty(textFieldUsuario.textProperty()).or(Bindings.isEmpty(passFieldPassword.textProperty())));
@@ -86,7 +85,6 @@ public class InicioSesionController implements Initializable {
     private void handlePopupRegister(ActionEvent event) throws IOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/Registro.fxml"));
         Parent root = cargador.load();
-        RegistroController register = cargador.getController();
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setTitle("Crear nueva cuenta");
