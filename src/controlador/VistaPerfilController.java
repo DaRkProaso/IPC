@@ -194,7 +194,7 @@ public class VistaPerfilController implements Initializable {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
         Parent root = cargador.load();
         PaginaPrincipal pagprin = cargador.getController();
-        pagprin.GetProfile(nickname, password);
+        pagprin.GetProfile(nickname, password, clubV);
         Stage stage2 = new Stage();
         Scene scene = new Scene(root);
         stage2.setScene(scene);

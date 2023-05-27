@@ -252,7 +252,7 @@ public class ReservarPistasController implements Initializable {
 
         Parent root = cargador.load();
         PaginaPrincipal pagprin = cargador.getController();
-        pagprin.GetProfile(nickname, password);
+        pagprin.GetProfile(nickname, password, clubR);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setTitle("Club de Tenis GreenBall");
