@@ -5,16 +5,26 @@
  */
 package controlador;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -22,7 +32,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -70,6 +83,8 @@ public class VistaPerfilController implements Initializable {
     private Stage stage;
     
     private Club clubV;
+    public ObservableList<Image> listaObservable = null;
+    private Circle clip = new Circle(60);
 
     /**
      * Initializes the controller class.
@@ -77,6 +92,54 @@ public class VistaPerfilController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         passwordLabel.setText("··········");
+        
+        List<Image> avatares = new ArrayList<>();
+        
+        avatares.add(new Image("imagenes/avatars/men.png"));
+        avatares.add(new Image("imagenes/avatars/men2.png"));
+        avatares.add(new Image("imagenes/avatars/men3.png"));
+        avatares.add(new Image("imagenes/avatars/men4.png"));
+        avatares.add(new Image("imagenes/avatars/men5.png"));
+        avatares.add(new Image("imagenes/avatars/woman.png"));
+        avatares.add(new Image("imagenes/avatars/woman2.png"));
+        avatares.add(new Image("imagenes/avatars/woman3.png"));
+        avatares.add(new Image("imagenes/avatars/woman4.png"));
+        avatares.add(new Image("imagenes/avatars/woman5.png"));
+        avatares.add(new Image("imagenes/avatars/woman6.png"));
+        
+        
+        listaObservable = FXCollections.observableArrayList(avatares);
+        
+        
+        //Clip es el circulo que rodea la imagen para que no se vea en forma de cuadrado.
+        clip.setCenterX(imageAvatar.getFitWidth()/3 - 5);
+        clip.setCenterY(imageAvatar.getFitHeight()/2);
+        clip.setId("clip-b");
+        clip.getStyleClass().add("clip-b");
+        clip.setStyle("-fx-border-color: grey;");
+        clip.setStyle("-fx-border-width: 4px;");
+        
+        
+        imageBox.setItems(listaObservable);
+        
+        imageBox.setLayoutX(imageAvatar.getFitWidth());
+        imageBox.setLayoutY(imageAvatar.getFitHeight());
+        imageBox.hide();
+        imageAvatar.setClip(clip);
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+        WritableImage image = imageAvatar.snapshot(parameters, null);
+        
+        imageBox.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Image> obs, Image oldVal, Image newVal) -> {
+            imageAvatar.setImage(imageBox.getSelectionModel().getSelectedItem());
+            try {
+                member.setImage(imageAvatar.getImage());
+                imageAvatar.setEffect(null);
+            } catch (Exception ex) {
+                
+                Logger.getLogger(VistaPerfilController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });     
     }    
 
     @FXML
@@ -154,11 +217,8 @@ public class VistaPerfilController implements Initializable {
         }
         telefonoLabel.setText(dialog.getResult());
     }
+    
 
-    @FXML
-    private void handleImgChange(MouseEvent event) {
-        
-    }
     
     private void SetPerfil(){
         nombreLabel.setText(nombre + " " + apellidos);
