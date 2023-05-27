@@ -111,13 +111,10 @@ public class PaginaPrincipal implements Initializable {
         else {image = member.getImage();}
         this.nickname = nickname;
         this.password = password;
-<<<<<<< HEAD
-=======
         clubP = club;
         GetProfile();
 }
     private void GetProfile(){
->>>>>>> 12356517397f8df74a320bc808ac4231be2808f9
         imagePerfil.setImage(image);
         labelPerfil.setText("Hola, " + nickname);
         nombreClub.setText(clubP.getName());
@@ -125,22 +122,6 @@ public class PaginaPrincipal implements Initializable {
 
     @FXML
     private void ModPerfil(MouseEvent event) throws IOException {
-<<<<<<< HEAD
-        try{
-            FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
-            Parent root = cargador.load();
-            VistaPerfilController perfil = cargador.getController();
-            perfil.SetPerfil(nickname, password, getInstance());
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            reservas.getScene().getWindow().hide();
-            stage.setTitle("Vista del perfil");
-            stage.setResizable(false);
-            stage.show();
-        } catch (ClubDAOException e) {}
-        
-=======
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
         Parent root = cargador.load();
         VistaPerfilController perfil = cargador.getController();
@@ -154,6 +135,5 @@ public class PaginaPrincipal implements Initializable {
         stage.getIcons().add(image2);
         stage.setResizable(false);
         stage.show();
->>>>>>> 12356517397f8df74a320bc808ac4231be2808f9
     }
 }
