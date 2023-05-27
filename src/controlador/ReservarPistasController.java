@@ -41,13 +41,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.Club;
 import model.*;
 
 /**
@@ -95,6 +95,18 @@ public class ReservarPistasController implements Initializable {
     private LocalDate daySelected;
     @FXML
     private TabPane tabulador;
+    @FXML
+    private Tab tab1;
+    @FXML
+    private Tab tab2;
+    @FXML
+    private Tab tab3;
+    @FXML
+    private Tab tab4;
+    @FXML
+    private Tab tab5;
+    @FXML
+    private Tab tab6;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -149,32 +161,9 @@ public class ReservarPistasController implements Initializable {
     }
     
     private void registerHandlers(TimeSlot timeSlot) {
-        timeSlot.getView().setOnMousePressed((MouseEvent event) -> {
-            timeSlots.forEach(slot -> {
-                slot.setSelected(slot == timeSlot);
-            });
-            timeSlotSelected.setValue(timeSlot);
-            if (event.getClickCount() > 1) {
-                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                alerta.setTitle("SlotTime");
-                alerta.setHeaderText("Confirma la selecció");
-                alerta.setContentText("Has seleccionat: "
-                        + timeSlot.getDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)) + ", "
-                        + timeSlot.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
-                Optional<ButtonType> result = alerta.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    ObservableList<String> styles = timeSlot.getView().getStyleClass();
-                    if (styles.contains("time-slot")) {
-                        styles.remove("time-slot");
-                        styles.add("time-slot-libre");
-                    } else {
-                        styles.remove("time-slot-libre");
-                        styles.add("time-slot");
-                    }
-                }
-            }
-        });
+        
     }
+
 
     @FXML
     private void volverPrincipio(ActionEvent event) throws IOException{

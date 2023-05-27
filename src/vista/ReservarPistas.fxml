@@ -16,7 +16,7 @@
    <children>
       <TabPane fx:id="tabulador" layoutY="48.0" prefHeight="533.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Pista 1">
+          <Tab fx:id="tab1" text="Pista 1">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -165,7 +165,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Pista 2">
+            <Tab fx:id="tab2" text="Pista 2">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -314,7 +314,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Pista 3">
+            <Tab fx:id="tab3" text="Pista 3">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -463,7 +463,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Pista 4">
+            <Tab fx:id="tab4" text="Pista 4">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -612,7 +612,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Pista 5">
+            <Tab fx:id="tab5" text="Pista 5">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -761,7 +761,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Pista 6">
+            <Tab fx:id="tab6" text="Pista 6">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
