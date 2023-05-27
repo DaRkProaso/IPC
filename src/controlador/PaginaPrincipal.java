@@ -57,11 +57,9 @@ public class PaginaPrincipal implements Initializable {
     
     private String nickname, password;
     
-    // DEBEN conincidir los tipo del ListView y de la lista observable
-    private ObservableList<Booking> listaObservable = null; // Coleccion vinculada a la vista.
+    private ObservableList<Booking> listaObservable = null;
     
-    //=========================================================
-    // you must initialize here all related with the object 
+    
     @Override
     public void initialize(URL url, ResourceBundle rb){
         reservasListView.setVisible(false);
@@ -104,7 +102,7 @@ public class PaginaPrincipal implements Initializable {
     }
     
     public void GetProfile(String nickname, String password, Club club){
-        member = clubP.getMemberByCredentials(nickname, password);
+        member = club.getMemberByCredentials(nickname, password);
         if(member.getImage() == null){
             image = new Image ("/imagenes/avatars/default.png");
         }

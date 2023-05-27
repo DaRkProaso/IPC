@@ -90,6 +90,8 @@ public class RegistroController implements Initializable {
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -130,7 +132,7 @@ public class RegistroController implements Initializable {
             return;
         }
         String tarjetacredito = textFieldTarjeta.getText();
-        if((tarjetacredito.length() != 16 || tarjetacredito.length() != 0) || !tarjetacredito.matches("\\d+")){ 
+        if((tarjetacredito.length() != 16 || !tarjetacredito.matches("\\d+")) && tarjetacredito.length() != 0){
             warningTarjeta.setText("Este número de tarjeta no es válido");
             return;
         }
