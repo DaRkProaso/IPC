@@ -35,11 +35,7 @@ import static model.Club.getInstance;
  * @author Andreu
  */
 public class VistaPerfilController implements Initializable {
-    private String nombre, apellidos, nickname, password, telefono,tarjeta;
-    
-    private int csv;
-    
-    private Image image;
+    private String nombre, apellidos, nickname, password;
     
     private Member member;
     @FXML
@@ -121,10 +117,8 @@ public class VistaPerfilController implements Initializable {
             alert.showAndWait();
             return;
         }
-        tarjeta = dialog.getResult();
-        csv = parseInt(dialog2.getResult());
-        tLabel.setText(tarjeta);
-        csvLabel.setText(Integer.toString(csv));
+        tLabel.setText(dialog.getResult());
+        csvLabel.setText(dialog2.getResult());
     }
 
     @FXML
@@ -158,8 +152,7 @@ public class VistaPerfilController implements Initializable {
             alert.setContentText("Por favor, introduzca un numero valido");
             alert.showAndWait();
         }
-        telefono = dialog.getResult();
-        telefonoLabel.setText(telefono);
+        telefonoLabel.setText(dialog.getResult());
     }
 
     @FXML
@@ -182,6 +175,10 @@ public class VistaPerfilController implements Initializable {
     public void SetPerfil(String nickname, String password, Club club){
         member = club.getMemberByCredentials(nickname, password);
         clubV = club;
+        nombre = member.getName();
+        apellidos = member.getSurname();
+        this.nickname = nickname;
+        this.password = password;
         SetPerfil();
     }
 
@@ -190,10 +187,10 @@ public class VistaPerfilController implements Initializable {
         member.setTelephone(telefonoLabel.getText());
         member.setName(nombre);
         member.setSurname(apellidos);
-        member.setCreditCard(tarjeta);
-        member.setSvc(csv);
+        member.setCreditCard(tLabel.getText());
+        member.setSvc(parseInt(csvLabel.getText()));
         member.setPassword(password);
-        member.setImage(image);
+        member.setImage(imageAvatar.getImage());
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
         Parent root = cargador.load();
         PaginaPrincipal pagprin = cargador.getController();

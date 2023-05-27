@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.io.IOException;
@@ -40,6 +35,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -50,11 +46,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.*;
 
-/**
- * FXML Controller class
- *
- * @author Andreu
- */
 public class ReservarPistasController implements Initializable {
 
     @FXML
@@ -75,24 +66,23 @@ public class ReservarPistasController implements Initializable {
     private DatePicker day;
     @FXML
     private Label fecha;
-    
+
     private Club clubR;
-    
     private Member member;
-    
     private String nickname, password;
-    
+
     private final LocalTime firstSlotStart = LocalTime.of(9, 0);
     private final Duration slotLength = Duration.ofMinutes(60);
     private final LocalTime lastSlotStart = LocalTime.of(21, 0);
-    
+
     private static final PseudoClass SELECTED_PSEUDO_CLASS = PseudoClass.getPseudoClass("selected");
 
     private final List<TimeSlot> timeSlots = new ArrayList<>(); //Para varias columnas List<List<TimeSolt>>
 
     private ObjectProperty<TimeSlot> timeSlotSelected;
-    
+
     private LocalDate daySelected;
+
     @FXML
     private TabPane tabulador;
     @FXML
@@ -116,7 +106,7 @@ public class ReservarPistasController implements Initializable {
                 public void updateItem(LocalDate date, boolean empty) {
                     super.updateItem(date, empty);
                     LocalDate today = LocalDate.now();
-                    setDisable(empty || date.compareTo(today) < 0 );
+                    setDisable(empty || date.compareTo(today) < 0);
                 }
             };
         });
@@ -138,7 +128,7 @@ public class ReservarPistasController implements Initializable {
             }
         });
     }
-    
+
     private void setTimeSlotsGrid(LocalDate date) {
         timeSlotSelected.setValue(null);
         List<GridPane> grids = Arrays.asList(grid1, grid2, grid3, grid4, grid5, grid6);
@@ -159,15 +149,107 @@ public class ReservarPistasController implements Initializable {
             slotIndex++;
         }
     }
-    
+
     private void registerHandlers(TimeSlot timeSlot) {
-        
+        timeSlot.getView().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (timeSlot.isReserved()) {
+                if (timeSlot.getMember().getNickName().equals(member.getNickName())) {
+                    showReservationDialogForMember(timeSlot);
+                } else {
+                    showReservationDialogForOtherMember(timeSlot);
+                }
+            } else {
+                showConfirmationDialog(timeSlot);
+            }
+        });
     }
 
+    private void showConfirmationDialog(TimeSlot timeSlot) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Confirmar reserva");
+        dialog.setHeaderText("¿Desea reservar esta pista?");
+        dialog.setContentText("Pista disponible");
+
+        ButtonType yesButton = new ButtonType("Sí");
+        ButtonType noButton = new ButtonType("No");
+
+        dialog.getDialogPane().getButtonTypes().addAll(yesButton, noButton);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == yesButton) {
+            if (canReserveTwoHoursInARow()) {
+                timeSlot.setReserved(true, member);
+                if (member.checkHasCreditInfo()) {
+                    timeSlot.setPaid(true);
+                }
+            } else {
+                showAlert("Error de reserva", "No se puede reservar más de 2 horas seguidas en la misma pista.");
+            }
+        }
+    }
+
+    private void showReservationDialogForMember(TimeSlot timeSlot) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Confirmar reserva");
+        dialog.setHeaderText("La pista está reservada por " + timeSlot.getMember().getNickName());
+        if (canCancelReservation(timeSlot)) {
+            dialog.setContentText("¿Desea cancelar la reserva?");
+            ButtonType cancelButton = new ButtonType("Cancelar reserva");
+            ButtonType closeButton = new ButtonType("Cerrar");
+            dialog.getDialogPane().getButtonTypes().addAll(cancelButton, closeButton);
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get() == cancelButton) {
+                timeSlot.setReserved(false, null);
+            }
+        } else {
+            dialog.setContentText("La pista no puede ser cancelada.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.showAndWait();
+        }
+    }
+
+    private void showReservationDialogForOtherMember(TimeSlot timeSlot) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Confirmar reserva");
+        dialog.setHeaderText("La pista está reservada por " + timeSlot.getMember().getNickName());
+        dialog.setContentText("La pista no está disponible.");
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialog.showAndWait();
+    }
+
+    private boolean canCancelReservation(TimeSlot timeSlot) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime twentyFourHoursAhead = now.plusHours(24);
+        return timeSlot.getStart().isAfter(twentyFourHoursAhead);
+    }
+
+    private boolean canReserveTwoHoursInARow() {
+        int consecutiveSlots = 0;
+        for (TimeSlot timeSlot : timeSlots) {
+            if (timeSlot.isReserved() && timeSlot.getMember().getNickName().equals(member.getNickName())) {
+                consecutiveSlots++;
+                if (consecutiveSlots >= 2) {
+                    return false;
+                }
+            } else {
+                consecutiveSlots = 0;
+            }
+        }
+        return true;
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     @FXML
-    private void volverPrincipio(ActionEvent event) throws IOException{
+    private void volverPrincipio(ActionEvent event) throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
+
         Parent root = cargador.load();
         PaginaPrincipal pagprin = cargador.getController();
         pagprin.GetProfile(nickname, password);
@@ -180,25 +262,28 @@ public class ReservarPistasController implements Initializable {
         volver.getScene().getWindow().hide();
         stage.show();
     }
-    
+
     public class TimeSlot {
 
         private final LocalDateTime start;
         private final Duration duration;
         protected final Pane view;
 
-        private final BooleanProperty selected = new SimpleBooleanProperty();
+        private final BooleanProperty reserved = new SimpleBooleanProperty(false);
+        private Member member;
+        private boolean paid;
 
-        public final BooleanProperty selectedProperty() {
-            return selected;
+        public final BooleanProperty reservedProperty() {
+            return reserved;
         }
 
-        public final boolean isSelected() {
-            return selectedProperty().get();
+        public final boolean isReserved() {
+            return reservedProperty().get();
         }
 
-        public final void setSelected(boolean selected) {
-            selectedProperty().set(selected);
+        public final void setReserved(boolean reserved, Member member) {
+            reservedProperty().set(reserved);
+            this.member = member;
         }
 
         public TimeSlot(LocalDateTime start, Duration duration) {
@@ -206,8 +291,17 @@ public class ReservarPistasController implements Initializable {
             this.duration = duration;
             view = new Pane();
             view.getStyleClass().add("time-slot");
-            selectedProperty().addListener((obs, wasSelected, isSelected)
-                    -> view.pseudoClassStateChanged(SELECTED_PSEUDO_CLASS, isSelected));
+            reservedProperty().addListener((obs, wasReserved, isReserved)
+                    -> updateViewStyle());
+        }
+
+        private void updateViewStyle() {
+            view.getStyleClass().removeAll("available", "reserved");
+            if (isReserved()) {
+                view.getStyleClass().add("reserved");
+            } else {
+                view.getStyleClass().add("available");
+            }
         }
 
         public LocalDateTime getStart() {
@@ -230,16 +324,29 @@ public class ReservarPistasController implements Initializable {
             return duration;
         }
 
+        public Member getMember() {
+            return member;
+        }
+
+        public boolean isPaid() {
+            return paid;
+        }
+
+        public void setPaid(boolean paid) {
+            this.paid = paid;
+        }
+
         public Node getView() {
             return view;
         }
     }
-    private void GetDatos(){
+
+    private void GetDatos() {
         nickname = member.getNickName();
         password = member.getPassword();
     }
-    
-    public void GetDatos(String nickname, String password, Club club){
+
+    public void GetDatos(String nickname, String password, Club club) {
         member = club.getMemberByCredentials(nickname, password);
         clubR = club;
         GetDatos();
