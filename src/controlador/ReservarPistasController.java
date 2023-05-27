@@ -88,7 +88,7 @@ public class ReservarPistasController implements Initializable {
     
     private static final PseudoClass SELECTED_PSEUDO_CLASS = PseudoClass.getPseudoClass("selected");
 
-    private List<TimeSlot> timeSlots = new ArrayList<>(); //Para varias columnas List<List<TimeSolt>>
+    private final List<TimeSlot> timeSlots = new ArrayList<>(); //Para varias columnas List<List<TimeSolt>>
 
     private ObjectProperty<TimeSlot> timeSlotSelected;
     
@@ -96,9 +96,6 @@ public class ReservarPistasController implements Initializable {
     @FXML
     private TabPane tabulador;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         day.setDayCellFactory((DatePicker picker) -> {

@@ -85,28 +85,11 @@ public class VistaPerfilController implements Initializable {
 
     @FXML
     private void handleChangePassword(ActionEvent event) {
-        TextInputDialog dialog3 = new TextInputDialog("");
-        dialog3.setTitle("Actualizar contraseña");
-        dialog3.setHeaderText("Introduzca su contraseña actual");
-        dialog3.setContentText("Contraseña:");
-        dialog3.showAndWait();
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Actualizar contraseña");
         dialog.setHeaderText("Introduce la nueva contraseña");
         dialog.setContentText("Nueva Contraseña:");
         dialog.showAndWait();
-        TextInputDialog dialog2 = new TextInputDialog("");
-        dialog2.setTitle("Actualizar contraseña");
-        dialog2.setHeaderText("Repite la contraseña por favor");
-        dialog2.setContentText("Repetir contraseña:");
-        dialog2.showAndWait();
-        if(!dialog3.getResult().equals(password) || !dialog.getResult().equals(dialog2.getResult())){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error al actualizar la contraseña");
-            alert.setHeaderText("Su antigua contraseña no es correcta o las nuevas no coinciden");
-            alert.setContentText("Por favor, vuelva a intentarlo");
-            alert.showAndWait();
-        }
         password = dialog.getResult();
     }
 
@@ -185,7 +168,7 @@ public class VistaPerfilController implements Initializable {
     }
     
     private void SetPerfil(){
-        nombreLabel.setText(member.getName() + " " + member.getSurname());
+        nombreLabel.setText(nombre + " " + apellidos);
         nicknameLabel.setText(member.getNickName());
         telefonoLabel.setText(member.getTelephone());
         tLabel.setText(member.getCreditCard());
@@ -204,12 +187,13 @@ public class VistaPerfilController implements Initializable {
 
     @FXML
     private void handleExit(ActionEvent event) throws IOException{
-        member.setTelephone(telefono);
+        member.setTelephone(telefonoLabel.getText());
         member.setName(nombre);
         member.setSurname(apellidos);
         member.setCreditCard(tarjeta);
         member.setSvc(csv);
         member.setPassword(password);
+        member.setImage(image);
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
         Parent root = cargador.load();
         PaginaPrincipal pagprin = cargador.getController();
