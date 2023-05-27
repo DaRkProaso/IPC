@@ -7,7 +7,11 @@ package controlador;
 
 import java.net.URL;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +20,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +46,8 @@ public class PaginaPrincipal implements Initializable {
     private Button reservas;
     @FXML
     private Button gestionar;
+    @FXML
+    private ListView<Booking> reservasListView;
     
     private Club clubP;
     
@@ -48,14 +56,35 @@ public class PaginaPrincipal implements Initializable {
     private Image image;
     
     private String nickname, password;
+    
+    // DEBEN conincidir los tipo del ListView y de la lista observable
+    private ObservableList<Booking> listaObservable = null; // Coleccion vinculada a la vista.
+    
     //=========================================================
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        if (member != null){
-            GetProfile();
-        }
+        
+        try{
+            clubP = getInstance();
+        }catch(IOException | ClubDAOException e){}
+        
+        List<Booking> reservasUsuario = clubP.getUserBookings(member.getNickName());
+        ArrayList<Booking> misReservas = new ArrayList<>(reservasUsuario);
+        
+        // Creamos la lista observable mediante un metodo de FXCollections
+        listaObservable = FXCollections.observableArrayList(misReservas);
+        
+        // Vinculamos la lista observables de personas con el ListView
+        reservasListView.setItems(listaObservable);   
+        
+        // Mantener invisible el ListView hasta que se pulse el botón de "Ver Reservas"
+        reservasListView.setVisible(false);
+        
+        // Hay que modificar CellFactory para mostrar el objeto Persona
+        reservasListView.setCellFactory(c -> new BookingListCell());
     } 
+    
     @FXML
     private void GestionarReserva(ActionEvent event) throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/ReservarPistas.fxml"));
@@ -75,17 +104,26 @@ public class PaginaPrincipal implements Initializable {
 
     @FXML
     private void VerReservas(ActionEvent event) throws IOException{
-
+        reservasListView.setVisible(true);
     }
-    public void GetProfile(String nickname, String password, Club club){
-        member = club.getMemberByCredentials(nickname, password);
+    
+    class BookingListCell extends ListCell<Booking>{
+        @Override
+        protected void updateItem(Booking b, boolean empty) {
+            super.updateItem(b, empty); /** Generated from (...)*/
+            if (b==null || empty) setText(null);
+            else setText("Qué miras " + member.getNickName() + "?");
+        } 
+    }
+    
+    public void GetProfile(String nickname, String password){
+        member = clubP.getMemberByCredentials(nickname, password);
         if(member.getImage() == null){
             image = new Image ("/imagenes/avatars/default.png");
         }
         else {image = member.getImage();}
         this.nickname = nickname;
         this.password = password;
-        clubP = club;
         GetProfile();
 }
     private void GetProfile(){

@@ -170,7 +170,7 @@ public class ReservarPistasController implements Initializable {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
         Parent root = cargador.load();
         PaginaPrincipal pagprin = cargador.getController();
-        pagprin.GetProfile(nickname, password, clubR);
+        pagprin.GetProfile(nickname, password);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setTitle("Club de Tenis GreenBall");

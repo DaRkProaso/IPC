@@ -181,8 +181,7 @@ public class RegistroController implements Initializable {
             FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
             Parent root = cargador.load();
             PaginaPrincipal pagprin = cargador.getController();
-            System.out.println(nickname +" "+ password +" "+ club);
-            pagprin.GetProfile(nickname, password, club);
+            pagprin.GetProfile(nickname, password);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
