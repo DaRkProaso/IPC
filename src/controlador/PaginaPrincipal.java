@@ -143,6 +143,8 @@ public class PaginaPrincipal implements Initializable {
         stage.setScene(scene);
         reservas.getScene().getWindow().hide();
         stage.setTitle("Vista del perfil");
+        Image image2 = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image2);
         stage.setResizable(false);
         stage.show();
     }
