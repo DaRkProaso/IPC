@@ -68,11 +68,15 @@ public class ReservarPistasController implements Initializable {
     private Label fecha;
 
     private Club clubR;
+    
     private Member member;
+    
     private String nickname, password;
 
     private final LocalTime firstSlotStart = LocalTime.of(9, 0);
+    
     private final Duration slotLength = Duration.ofMinutes(60);
+    
     private final LocalTime lastSlotStart = LocalTime.of(21, 0);
 
     private static final PseudoClass SELECTED_PSEUDO_CLASS = PseudoClass.getPseudoClass("selected");
@@ -83,20 +87,6 @@ public class ReservarPistasController implements Initializable {
 
     private LocalDate daySelected;
 
-    @FXML
-    private TabPane tabulador;
-    @FXML
-    private Tab tab1;
-    @FXML
-    private Tab tab2;
-    @FXML
-    private Tab tab3;
-    @FXML
-    private Tab tab4;
-    @FXML
-    private Tab tab5;
-    @FXML
-    private Tab tab6;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -148,108 +138,94 @@ public class ReservarPistasController implements Initializable {
             }
             slotIndex++;
         }
+        if (clubR != null) {
+            updateGridColors();
+        }
     }
 
     private void registerHandlers(TimeSlot timeSlot) {
-        timeSlot.getView().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            if (timeSlot.isReserved()) {
-                if (timeSlot.getMember().getNickName().equals(member.getNickName())) {
-                    showReservationDialogForMember(timeSlot);
+        timeSlot.getView().setOnMousePressed((MouseEvent e) -> {
+            
+            timeSlots.forEach(slot -> {
+                slot.setSelected(slot == timeSlot);
+            });
+            
+            timeSlotSelected.setValue(timeSlot);
+            if (e.getClickCount() > 1) {
+            timeSlots.forEach(ts -> ts.setSelected(false));
+            timeSlot.setSelected(true);
+            timeSlotSelected.set(timeSlot);
+            LocalDate selectedDate = day.getValue();
+            LocalTime selectedTime = timeSlot.getTime();
+            LocalDateTime selectedDateTime = LocalDateTime.of(selectedDate, selectedTime);
+            Court selectedCourt = getCourtFromGrid(timeSlot.getView().getParent());
+            if (selectedCourt != null) {
+                Booking existingBooking = getBookingAtDateTime(selectedCourt, selectedDateTime);
+                if (existingBooking != null) {
+                    if (existingBooking.getMember().equals(member)) {
+                        if (Duration.between(LocalDateTime.now(), selectedDateTime).toHours() >= 24) {
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Cancelar reserva");
+                            alert.setHeaderText("La pista está reservada por " + existingBooking.getMember().getNickName());
+                            alert.setContentText("¿Quieres cancelar la reserva?");
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.isPresent() && result.get() == ButtonType.OK) {
+                                try {
+                                    clubR.removeBooking(existingBooking);
+                                    updateGridColors();
+                                } catch (ClubDAOException ex) {}
+                            }
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Reserva");
+                            alert.setHeaderText("La pista está reservada por " + existingBooking.getMember().getNickName());
+                            alert.showAndWait();
+                        }
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Reserva");
+                        alert.setHeaderText("La pista está reservada por " + existingBooking.getMember().getNickName());
+                        alert.showAndWait();
+                    }
                 } else {
-                    showReservationDialogForOtherMember(timeSlot);
+                    if (Duration.between(LocalDateTime.now(), selectedDateTime).toHours() >= 24) {
+                        if (!hasTwoConsecutiveBookings(selectedCourt, selectedDateTime)) {
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Reservar pista");
+                            alert.setHeaderText("La pista está libre");
+                            alert.setContentText("¿Quieres reservar esta pista?");
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.isPresent() && result.get() == ButtonType.OK) {
+                                try {
+                                    if (member.checkHasCreditInfo()){
+                                        clubR.registerBooking(LocalDateTime.now(), selectedDate, selectedTime, true, selectedCourt, member);
+                                    }else{
+                                        clubR.registerBooking(LocalDateTime.now(), selectedDate, selectedTime, false, selectedCourt, member);
+                                    }
+                                    updateGridColors();
+                                } catch (ClubDAOException ex) {}
+                            }
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Reserva");
+                            alert.setHeaderText("No puedes tener más de 2 horas seguidas una pista reservada");
+                            alert.showAndWait();
+                        }
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Reserva");
+                        alert.setHeaderText("No se pueden hacer reservas con menos de 24 horas de antelación");
+                        alert.showAndWait();
+                    }
                 }
-            } else {
-                showConfirmationDialog(timeSlot);
             }
+        }
         });
-    }
-
-    private void showConfirmationDialog(TimeSlot timeSlot) {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Confirmar reserva");
-        dialog.setHeaderText("¿Desea reservar esta pista?");
-        dialog.setContentText("Pista disponible");
-
-        ButtonType yesButton = new ButtonType("Sí");
-        ButtonType noButton = new ButtonType("No");
-
-        dialog.getDialogPane().getButtonTypes().addAll(yesButton, noButton);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-        if (result.isPresent() && result.get() == yesButton) {
-            if (canReserveTwoHoursInARow()) {
-                timeSlot.setReserved(true, member);
-                if (member.checkHasCreditInfo()) {
-                    timeSlot.setPaid(true);
-                }
-            } else {
-                showAlert("Error de reserva", "No se puede reservar más de 2 horas seguidas en la misma pista.");
-            }
-        }
-    }
-
-    private void showReservationDialogForMember(TimeSlot timeSlot) {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Confirmar reserva");
-        dialog.setHeaderText("La pista está reservada por " + timeSlot.getMember().getNickName());
-        if (canCancelReservation(timeSlot)) {
-            dialog.setContentText("¿Desea cancelar la reserva?");
-            ButtonType cancelButton = new ButtonType("Cancelar reserva");
-            ButtonType closeButton = new ButtonType("Cerrar");
-            dialog.getDialogPane().getButtonTypes().addAll(cancelButton, closeButton);
-            Optional<ButtonType> result = dialog.showAndWait();
-            if (result.isPresent() && result.get() == cancelButton) {
-                timeSlot.setReserved(false, null);
-            }
-        } else {
-            dialog.setContentText("La pista no puede ser cancelada.");
-            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-            dialog.showAndWait();
-        }
-    }
-
-    private void showReservationDialogForOtherMember(TimeSlot timeSlot) {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Confirmar reserva");
-        dialog.setHeaderText("La pista está reservada por " + timeSlot.getMember().getNickName());
-        dialog.setContentText("La pista no está disponible.");
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-        dialog.showAndWait();
-    }
-
-    private boolean canCancelReservation(TimeSlot timeSlot) {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime twentyFourHoursAhead = now.plusHours(24);
-        return timeSlot.getStart().isAfter(twentyFourHoursAhead);
-    }
-
-    private boolean canReserveTwoHoursInARow() {
-        int consecutiveSlots = 0;
-        for (TimeSlot timeSlot : timeSlots) {
-            if (timeSlot.isReserved() && timeSlot.getMember().getNickName().equals(member.getNickName())) {
-                consecutiveSlots++;
-                if (consecutiveSlots >= 2) {
-                    return false;
-                }
-            } else {
-                consecutiveSlots = 0;
-            }
-        }
-        return true;
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     @FXML
     private void volverPrincipio(ActionEvent event) throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
-
         Parent root = cargador.load();
         PaginaPrincipal pagprin = cargador.getController();
         pagprin.GetProfile(nickname, password, clubR);
@@ -264,44 +240,32 @@ public class ReservarPistasController implements Initializable {
     }
 
     public class TimeSlot {
-
+        
         private final LocalDateTime start;
         private final Duration duration;
         protected final Pane view;
 
-        private final BooleanProperty reserved = new SimpleBooleanProperty(false);
-        private Member member;
-        private boolean paid;
+        private final BooleanProperty selected = new SimpleBooleanProperty();
 
-        public final BooleanProperty reservedProperty() {
-            return reserved;
+        public final BooleanProperty selectedProperty() {
+            return selected;
         }
 
-        public final boolean isReserved() {
-            return reservedProperty().get();
+        public final boolean isSelected() {
+            return selectedProperty().get();
         }
 
-        public final void setReserved(boolean reserved, Member member) {
-            reservedProperty().set(reserved);
-            this.member = member;
+        public final void setSelected(boolean selected) {
+            selectedProperty().set(selected);
         }
 
         public TimeSlot(LocalDateTime start, Duration duration) {
             this.start = start;
             this.duration = duration;
             view = new Pane();
-            view.getStyleClass().add("time-slot");
-            reservedProperty().addListener((obs, wasReserved, isReserved)
-                    -> updateViewStyle());
-        }
-
-        private void updateViewStyle() {
-            view.getStyleClass().removeAll("available", "reserved");
-            if (isReserved()) {
-                view.getStyleClass().add("reserved");
-            } else {
-                view.getStyleClass().add("available");
-            }
+            view.getStyleClass().add("time-slot-libre");
+            selectedProperty().addListener((obs, wasSelected, isSelected)
+                    -> view.pseudoClassStateChanged(SELECTED_PSEUDO_CLASS, isSelected));
         }
 
         public LocalDateTime getStart() {
@@ -324,18 +288,6 @@ public class ReservarPistasController implements Initializable {
             return duration;
         }
 
-        public Member getMember() {
-            return member;
-        }
-
-        public boolean isPaid() {
-            return paid;
-        }
-
-        public void setPaid(boolean paid) {
-            this.paid = paid;
-        }
-
         public Node getView() {
             return view;
         }
@@ -350,5 +302,56 @@ public class ReservarPistasController implements Initializable {
         member = club.getMemberByCredentials(nickname, password);
         clubR = club;
         GetDatos();
+    }
+    private Court getCourtFromGrid(Parent grid) {
+        int gridIndex = Integer.parseInt(grid.getId().substring(grid.getId().length() - 1)) - 1;
+        return clubR.getCourts().get(gridIndex);
+    }
+    
+    private Booking getBookingAtDateTime(Court court, LocalDateTime dateTime) {
+        for (Booking booking : clubR.getBookings()) {
+            if (booking.getCourt().equals(court)
+                && booking.getMadeForDay().equals(dateTime.toLocalDate())
+                && booking.getFromTime().equals(dateTime.toLocalTime())) {
+                return booking;
+            }
+        } return null;
+    }
+    private boolean hasTwoConsecutiveBookings(Court court, LocalDateTime dateTime) {
+        LocalDateTime previous2Hours = dateTime.minusHours(2);
+        LocalDateTime previousHour = dateTime.minusHours(1);
+        LocalDateTime nextHour = dateTime.plusHours(1);
+        LocalDateTime next2Hours = dateTime.plusHours(2);
+        boolean test = getBookingAtDateTime(court, previousHour)!= null && getBookingAtDateTime(court, previous2Hours) != null && getBookingAtDateTime(court, nextHour) != null && getBookingAtDateTime(court, next2Hours) != null;
+        return test;
+    }
+    
+    private void updateGridColors() {
+        List<GridPane> grids = Arrays.asList(grid1, grid2, grid3, grid4, grid5, grid6);
+        LocalDate date = day.getValue();
+        List<Booking> bookingsForDay = clubR.getForDayBookings(date);
+        grids.forEach(grid -> {
+            grid.getChildren().stream().filter(node -> (node instanceof Pane)).map(node -> (Pane) node).forEachOrdered(pane -> {
+                Integer row = GridPane.getRowIndex(pane);
+                if (row != null) {
+                    LocalTime time = firstSlotStart.plusMinutes((row - 1) * slotLength.toMinutes());
+                    //LocalDateTime dateTime = LocalDateTime.of(date, time);
+                    Court court = getCourtFromGrid(pane.getParent());
+                    Booking booking = bookingsForDay.stream()
+                            .filter(b -> b.getCourt().equals(court)
+                                    && b.getMadeForDay().equals(date)
+                                    && b.getFromTime().equals(time))
+                            .findFirst()
+                            .orElse(null);
+                    if (booking != null) {
+                        pane.getStyleClass().removeAll("time-slot-libre", "time-slot");
+                        pane.getStyleClass().add("time-slot");
+                    } else {
+                        pane.getStyleClass().removeAll("time-slot-libre", "time-slot");
+                        pane.getStyleClass().add("time-slot-libre");
+                    }
+                }
+            });
+        });
     }
 }

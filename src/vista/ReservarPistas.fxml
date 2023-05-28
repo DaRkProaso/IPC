@@ -14,9 +14,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="501.0" stylesheets="@../estilos/ReservaPistas.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ReservarPistasController">
    <children>
-      <TabPane fx:id="tabulador" layoutY="48.0" prefHeight="533.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="48.0" prefHeight="533.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="tab1" text="Pista 1">
+          <Tab text="Pista 1">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -165,7 +165,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tab2" text="Pista 2">
+            <Tab text="Pista 2">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -314,7 +314,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tab3" text="Pista 3">
+            <Tab text="Pista 3">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -463,7 +463,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tab4" text="Pista 4">
+            <Tab text="Pista 4">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -612,7 +612,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tab5" text="Pista 5">
+            <Tab text="Pista 5">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>
@@ -761,7 +761,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tab6" text="Pista 6">
+            <Tab text="Pista 6">
                <content>
                   <AnchorPane prefHeight="536.0" prefWidth="501.0">
                      <children>

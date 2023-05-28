@@ -11,7 +11,7 @@
     -fx-cursor: hand;
 }
 
-.time-slot:selected {
+.time-slot-libre:selected {
     -fx-background-color: indianred;
 }
 
