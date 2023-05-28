@@ -322,8 +322,7 @@ public class ReservarPistasController implements Initializable {
         LocalDateTime previousHour = dateTime.minusHours(1);
         LocalDateTime nextHour = dateTime.plusHours(1);
         LocalDateTime next2Hours = dateTime.plusHours(2);
-        boolean test = getBookingAtDateTime(court, previousHour)!= null && getBookingAtDateTime(court, previous2Hours) != null && getBookingAtDateTime(court, nextHour) != null && getBookingAtDateTime(court, next2Hours) != null;
-        return test;
+        return (getBookingAtDateTime(court, previousHour)!= null && getBookingAtDateTime(court, previous2Hours) != null) || (getBookingAtDateTime(court, nextHour) != null && getBookingAtDateTime(court, next2Hours) != null);
     }
     
     private void updateGridColors() {

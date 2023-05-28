@@ -23,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.*;
 
 /**
  * FXML Controller class
@@ -49,6 +50,8 @@ public class VerPistasController implements Initializable {
     private GridPane grid6;
     @FXML
     private Label fecha;
+    
+    private Club club;
 
     /**
      * Initializes the controller class.
@@ -80,5 +83,7 @@ public class VerPistasController implements Initializable {
         volver.getScene().getWindow().hide();
         stage.show();
     }
-    
+    public void GetClub(Club club){
+        this.club = club;
+    }
 }

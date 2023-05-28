@@ -127,6 +127,8 @@ public class InicioSesionController implements Initializable {
     private void verPistas(ActionEvent event) throws IOException, ClubDAOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VerPistas.fxml"));
         Parent root = cargador.load();
+        VerPistasController verpistas = cargador.getController();
+        verpistas.GetClub(club);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setTitle("Club de Tenis " + club.getName());
