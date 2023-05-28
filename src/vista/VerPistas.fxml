@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerPistasController">
+<AnchorPane id="AnchorPane" prefHeight="544.0" prefWidth="501.0" stylesheets="@../estilos/ReservaPistas.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerPistasController">
    <children>
       <DatePicker fx:id="day" layoutX="14.0" layoutY="14.0" />
       <TabPane layoutY="48.0" prefHeight="533.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE">

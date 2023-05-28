@@ -239,7 +239,7 @@ public class ReservarPistasController implements Initializable {
         stage.show();
     }
 
-    public class TimeSlot {
+    private class TimeSlot {
         
         private final LocalDateTime start;
         private final Duration duration;
@@ -334,7 +334,6 @@ public class ReservarPistasController implements Initializable {
                 Integer row = GridPane.getRowIndex(pane);
                 if (row != null) {
                     LocalTime time = firstSlotStart.plusMinutes((row - 1) * slotLength.toMinutes());
-                    //LocalDateTime dateTime = LocalDateTime.of(date, time);
                     Court court = getCourtFromGrid(pane.getParent());
                     Booking booking = bookingsForDay.stream()
                             .filter(b -> b.getCourt().equals(court)
