@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -74,9 +75,13 @@ public class VistaPerfilController implements Initializable {
     @FXML
     private Button buttonImage;
     
+    private static final String PASSCHECK = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$";
+    
+    private static final Pattern PASSPATTERN= Pattern.compile(PASSCHECK);
+    
     private Club clubV;
     public ObservableList<Image> listaObservable = null;
-    private Circle clip = new Circle(60);
+    private final Circle clip = new Circle(90);
 
     /**
      * Initializes the controller class.
@@ -141,6 +146,15 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce la nueva contraseña");
         dialog.setContentText("Nueva Contraseña:");
         dialog.showAndWait();
+        if (dialog.getResult() == null) return;
+        if(!PASSPATTERN.matcher(password).matches()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error al actualizar la contraseña");
+            alert.setHeaderText("Ha introducido una contraseña incorrecta");
+            alert.setContentText("La contraseña ha de tener 6 carácteres, incluyendo minimo una mayúscula y un número");
+            alert.showAndWait();
+            return;
+        }
         password = dialog.getResult();
     }
 
@@ -151,7 +165,8 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce o actualiza tu tarjeta de crédito");
         dialog.setContentText("Tarjeta:");
         dialog.showAndWait();
-        if(dialog.getResult().length() != 16 && dialog.getResult().matches("\\d+")){
+        if (dialog.getResult().equals("")) return;
+        else if(dialog.getResult().length() != 16 && dialog.getResult().matches("\\d+")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error al actualizar la tarjeta");
             alert.setHeaderText("Ha introducido una tarjeta no válida");
@@ -164,6 +179,7 @@ public class VistaPerfilController implements Initializable {
         dialog2.setHeaderText("Introduce o actualiza tu CSV:");
         dialog2.setContentText("CSV:");
         dialog2.showAndWait();
+        if (dialog2.getResult().equals("")) return; 
         if(dialog2.getResult().length() != 3 && dialog2.getResult().matches("\\d+")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error al actualizar la tarjeta");
@@ -183,11 +199,13 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce tu nombre");
         dialog.setContentText("Nombre:");
         dialog.showAndWait();
+        if (dialog.getResult().equals("")) return;
         TextInputDialog dialog2 = new TextInputDialog("");
         dialog2.setTitle("Actualizar apellidos");
         dialog2.setHeaderText("Introduce tus apellidos");
         dialog2.setContentText("Apellidos:");
         dialog2.showAndWait();
+        if (dialog2.getResult().equals("")) return;
         nombre = dialog.getResult();
         apellidos = dialog2.getResult();
         nombreLabel.setText(nombre + " "+ apellidos);
@@ -200,6 +218,7 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce tu número de teléfono");
         dialog.setContentText("Teléfono:");
         dialog.showAndWait();
+        if (dialog.getResult().equals("")) return;
         if(dialog.getResult().length() != 9 && dialog.getResult().matches("\\d+")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error al actualizar el teléfono");
@@ -240,7 +259,7 @@ public class VistaPerfilController implements Initializable {
         member.setName(nombre);
         member.setSurname(apellidos);
         member.setCreditCard(tLabel.getText());
-        if (csvLabel != null){member.setSvc(parseInt(csvLabel.getText()));}
+        if (!csvLabel.getText().equals("")){member.setSvc(parseInt(csvLabel.getText()));}
         else{member.setSvc(0);}
         member.setPassword(password);
         member.setImage(imageAvatar.getImage());
