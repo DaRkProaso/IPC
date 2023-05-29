@@ -10,6 +10,8 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -86,13 +88,36 @@ public class PaginaPrincipal implements Initializable {
         
         List<Booking> reservasUsuario = clubP.getUserBookings(member.getNickName());
         ArrayList<Booking> misReservas = new ArrayList<>(reservasUsuario);
-        listaObservable = FXCollections.observableArrayList(misReservas);
+        
+        
+        
+        listaObservable = setListViewItems(misReservas);
+        
         reservasListView.setItems(listaObservable);
         reservasListView.setCellFactory(c -> new BookingListCell());
         
         reservasListView.setVisible(true);
     }
-
+    private ObservableList<Booking> setListViewItems(ArrayList<Booking> listaReservas){
+        ArrayList<Booking> aux = listaReservas;
+        
+        
+        Collections.sort(aux, new Comparator<Booking>() {
+            @Override
+            public int compare(Booking booking1, Booking booking2) {
+                return booking2.getBookingDate().compareTo(booking1.getBookingDate());
+            }
+        });
+        
+        for(int i = listaReservas.size(); i >= 9; i--){
+                aux.remove(i);
+        }
+        
+        ObservableList<Booking> res = FXCollections.observableList(aux);
+        return res;
+        //reservasListView.setItems(aux);
+    }
+    
     @FXML
     private void ModPerfil(MouseEvent event) throws IOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
