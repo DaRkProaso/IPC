@@ -240,7 +240,8 @@ public class VistaPerfilController implements Initializable {
         member.setName(nombre);
         member.setSurname(apellidos);
         member.setCreditCard(tLabel.getText());
-        member.setSvc(parseInt(csvLabel.getText()));
+        if (csvLabel != null){member.setSvc(parseInt(csvLabel.getText()));}
+        else{member.setSvc(0);}
         member.setPassword(password);
         member.setImage(imageAvatar.getImage());
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
