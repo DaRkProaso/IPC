@@ -7,6 +7,7 @@ package controlador;
 
 import java.net.URL;
 import java.io.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -60,6 +61,7 @@ public class PaginaPrincipal implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         reservasListView.setVisible(false);
+        //DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
     } 
     
     @FXML
@@ -81,12 +83,14 @@ public class PaginaPrincipal implements Initializable {
 
     @FXML
     private void VerReservas(ActionEvent event) throws IOException{
-        reservasListView.setVisible(true);
+        
         List<Booking> reservasUsuario = clubP.getUserBookings(member.getNickName());
         ArrayList<Booking> misReservas = new ArrayList<>(reservasUsuario);
         listaObservable = FXCollections.observableArrayList(misReservas);
         reservasListView.setItems(listaObservable);
         reservasListView.setCellFactory(c -> new BookingListCell());
+        
+        reservasListView.setVisible(true);
     }
 
     @FXML
@@ -112,8 +116,14 @@ public class PaginaPrincipal implements Initializable {
         protected void updateItem(Booking b, boolean empty) {
             super.updateItem(b, empty); /** Generated from (...)*/
             if (b==null || empty) setText(null);
-            else setText("Qué miras " + member.getNickName() + "?");
-        } 
+            else if (b.getPaid()){
+                setText("Reserva: " + b.getMadeForDay() + " - " +
+                b.getCourt().getName() + " - " + b.getFromTime() + " - pagado");
+            }else {
+                setText("Reserva: " + b.getMadeForDay() + " - " +
+                b.getCourt().getName() + " - " + b.getFromTime() + " - no pagado");
+            }
+        }
     }
     
     public void GetProfile(String nickname, String password, Club club){
