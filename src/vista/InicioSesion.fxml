@@ -39,27 +39,27 @@
                         <Insets left="22.0" right="25.0" />
                      </GridPane.margin>
                   </TextField>
+                  <PasswordField fx:id="passFieldPassword" prefHeight="38.0" prefWidth="255.0" promptText="Contraseña" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="25.0" right="25.0" />
+                     </GridPane.margin>
+                  </PasswordField>
                   <Label id="texto-segundo" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="322.0" stylesheets="@../estilos/estilos.css" text="INICIO DE SESIÓN" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font></Label>
-                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
-                     <children>
-                        <Label layoutX="106.0" layoutY="6.0" text="¿No tienes una cuenta?" />
-                        <Button id="registrarse-button" fx:id="registerButton" layoutX="24.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlePopupRegister" prefHeight="43.0" prefWidth="288.0" stylesheets="@../estilos/estilos.css" text="Registrarse" />
-                     </children>
-                  </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                      <children>
                         <Button id="registrarse-button" fx:id="loginButton" layoutX="24.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleSesion" prefHeight="43.0" prefWidth="288.0" stylesheets="@../estilos/estilos.css" text="Iniciar Sesión" />
                         <Label id="warning-text" fx:id="warningLabel" alignment="CENTER" layoutX="90.0" layoutY="-8.0" stylesheets="@../estilos/estilos.css" text="Label" textAlignment="CENTER" />
                      </children>
                   </Pane>
-                  <PasswordField fx:id="passFieldPassword" prefHeight="38.0" prefWidth="255.0" promptText="Contraseña" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="25.0" right="25.0" />
-                     </GridPane.margin>
-                  </PasswordField>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+                     <children>
+                        <Label layoutX="106.0" layoutY="6.0" text="¿No tienes una cuenta?" />
+                        <Button id="registrarse-button" fx:id="registerButton" layoutX="24.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlePopupRegister" prefHeight="43.0" prefWidth="288.0" stylesheets="@../estilos/estilos.css" text="Registrarse" />
+                     </children>
+                  </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                      <children>
                         <Button fx:id="verPistas" layoutX="23.0" layoutY="13.0" mnemonicParsing="false" onAction="#verPistas" prefHeight="46.0" prefWidth="288.0" text="Ver Pistas" />
