@@ -26,10 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.Club;
 import model.*;
-import model.ClubDAOException;
-import static model.Club.*;
 
 /**
  *
@@ -91,6 +88,24 @@ public class PaginaPrincipal implements Initializable {
         reservasListView.setItems(listaObservable);
         reservasListView.setCellFactory(c -> new BookingListCell());
     }
+
+    @FXML
+    private void ModPerfil(MouseEvent event) throws IOException{
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
+        Parent root = cargador.load();
+        VistaPerfilController perfil = cargador.getController();
+        perfil.SetPerfil(nickname, password, clubP);
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        reservas.getScene().getWindow().hide();
+        stage.setTitle("Vista del perfil");
+        Image image2 = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image2);
+        stage.setResizable(false);
+        stage.show();
+
+    }
     
     class BookingListCell extends ListCell<Booking>{
         @Override
@@ -116,22 +131,5 @@ public class PaginaPrincipal implements Initializable {
         imagePerfil.setImage(image);
         labelPerfil.setText("Hola, " + nickname);
         nombreClub.setText(clubP.getName());
-    }
-
-    @FXML
-    private void ModPerfil(MouseEvent event) throws IOException {
-        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
-        Parent root = cargador.load();
-        VistaPerfilController perfil = cargador.getController();
-        perfil.SetPerfil(nickname, password, clubP);
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        reservas.getScene().getWindow().hide();
-        stage.setTitle("Vista del perfil");
-        Image image2 = new Image("/imagenes/Icono.png");
-        stage.getIcons().add(image2);
-        stage.setResizable(false);
-        stage.show();
     }
 }

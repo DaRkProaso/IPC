@@ -5,8 +5,6 @@
  */
 package controlador;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
@@ -33,14 +31,10 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import model.*;
-import static model.Club.getInstance;
 
 /**
  * FXML Controller class
@@ -79,8 +73,6 @@ public class VistaPerfilController implements Initializable {
     private Button buttonExit;
     @FXML
     private Button buttonImage;
-    
-    private Stage stage;
     
     private Club clubV;
     public ObservableList<Image> listaObservable = null;

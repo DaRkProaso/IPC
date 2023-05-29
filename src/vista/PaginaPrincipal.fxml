@@ -13,7 +13,7 @@
 <Pane focusTraversable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PaginaPrincipal">
    <children>
       <ListView fx:id="reservasListView" layoutX="352.0" layoutY="79.0" prefHeight="429.0" prefWidth="326.0" />
-      <ImageView fitHeight="517.0" fitWidth="692.0" onMouseClicked="#ModPerfil" pickOnBounds="true">
+      <ImageView fitHeight="517.0" fitWidth="692.0" pickOnBounds="true">
          <image>
             <Image url="@../imagenes/tenis_principal.jpg" />
          </image>
@@ -36,7 +36,7 @@
             <Font name="Roboto Condensed Bold" size="52.0" />
          </font>
       </Label>
-      <ImageView fx:id="imagePerfil" fitHeight="94.0" fitWidth="101.0" onMouseClicked="#ModPerfil" pickOnBounds="true" />
-      <Label fx:id="labelPerfil" layoutX="110.0" layoutY="40.0" />
+      <ImageView fx:id="imagePerfil" fitHeight="101.0" fitWidth="106.0" onMouseClicked="#ModPerfil" pickOnBounds="true" />
+      <Label fx:id="labelPerfil" layoutX="119.0" layoutY="52.0" />
    </children>
 </Pane>
