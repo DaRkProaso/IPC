@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane focusTraversable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PaginaPrincipal">
+<Pane focusTraversable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PaginaPrincipal">
    <children>
-      <ImageView fitHeight="517.0" fitWidth="692.0" onMouseClicked="#ModPerfil" pickOnBounds="true">
+      <ImageView fitHeight="403.0" fitWidth="692.0" pickOnBounds="true">
          <image>
             <Image url="@../imagenes/tenis_principal.jpg" />
          </image>
@@ -30,13 +30,13 @@
                </HBox.margin></Button>
          </children>
       </HBox>
-      <Label fx:id="nombreClub" alignment="CENTER" contentDisplay="CENTER" layoutY="329.0" prefHeight="196.0" prefWidth="375.0" textAlignment="CENTER" textOverrun="CLIP">
+      <Label fx:id="nombreClub" alignment="CENTER" contentDisplay="CENTER" layoutY="207.0" prefHeight="196.0" prefWidth="375.0" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="Roboto Condensed Bold" size="52.0" />
          </font>
       </Label>
       <ImageView fx:id="imagePerfil" fitHeight="94.0" fitWidth="101.0" onMouseClicked="#ModPerfil" pickOnBounds="true" />
       <Label fx:id="labelPerfil" layoutX="110.0" layoutY="40.0" />
-      <ListView fx:id="reservasListView" layoutX="346.0" layoutY="124.0" prefHeight="285.0" prefWidth="338.0" />
+      <ListView fx:id="reservasListView" layoutX="375.0" layoutY="94.0" prefHeight="263.0" prefWidth="301.0" />
    </children>
 </Pane>
