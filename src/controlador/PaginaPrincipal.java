@@ -63,7 +63,7 @@ public class PaginaPrincipal implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        reservasListView.setVisible(false); 
+        reservasListView.setVisible(false);
     } 
     
     @FXML
@@ -85,7 +85,11 @@ public class PaginaPrincipal implements Initializable {
 
     @FXML
     private void VerReservas(ActionEvent event) throws IOException{
-        
+        if (reservasListView.isVisible()) {
+            reservasListView.setVisible(false);
+        } else {
+            reservasListView.setVisible(true);
+        }
         List<Booking> reservasUsuario = clubP.getUserBookings(member.getNickName());
         ArrayList<Booking> misReservas = new ArrayList<>(reservasUsuario);
         
@@ -95,8 +99,6 @@ public class PaginaPrincipal implements Initializable {
         
         reservasListView.setItems(listaObservable);
         reservasListView.setCellFactory(c -> new BookingListCell());
-        
-        reservasListView.setVisible(true);
     }
     private ObservableList<Booking> setListViewItems(ArrayList<Booking> listaReservas){
         ArrayList<Booking> aux = listaReservas;
