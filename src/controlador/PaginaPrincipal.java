@@ -121,7 +121,7 @@ public class PaginaPrincipal implements Initializable {
                 setText("Reserva: " + b.getMadeForDay().format(dayFormatter) + " - " +
                 b.getCourt().getName() + " - " + b.getFromTime() + " - " +b.getFromTime().plusHours(1) + " - pagado");
             }else {
-                setText("Reserva: " + b.getMadeForDay() + " - " +
+                setText("Reserva: " + b.getMadeForDay().format(dayFormatter) + " - " +
                 b.getCourt().getName() + " - " + b.getFromTime()+ " - " +b.getFromTime().plusHours(1) + " - no pagado");
             }
         }
@@ -142,23 +142,5 @@ public class PaginaPrincipal implements Initializable {
         imagePerfil.setImage(image);
         labelPerfil.setText("Hola, " + nickname);
         nombreClub.setText(clubP.getName());
-    }
-    
-    private boolean hasTwoConsecutiveBookings(Court court, LocalDateTime dateTime) {
-        LocalDateTime previous2Hours = dateTime.minusHours(2);
-        LocalDateTime previousHour = dateTime.minusHours(1);
-        LocalDateTime nextHour = dateTime.plusHours(1);
-        LocalDateTime next2Hours = dateTime.plusHours(2);
-        return (getBookingAtDateTime(court, previousHour)!= null && getBookingAtDateTime(court, previous2Hours) != null) || (getBookingAtDateTime(court, nextHour) != null && getBookingAtDateTime(court, next2Hours) != null);
-    }
-    
-    private Booking getBookingAtDateTime(Court court, LocalDateTime dateTime) {
-        for (Booking booking : clubP.getBookings()) {
-            if (booking.getCourt().equals(court)
-                && booking.getMadeForDay().equals(dateTime.toLocalDate())
-                && booking.getFromTime().equals(dateTime.toLocalTime())) {
-                return booking;
-            }
-        } return null;
     }
 }
