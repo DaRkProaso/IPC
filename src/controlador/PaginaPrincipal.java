@@ -64,7 +64,7 @@ public class PaginaPrincipal implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         reservasListView.setVisible(false);
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
+        //DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
     } 
     
     @FXML
