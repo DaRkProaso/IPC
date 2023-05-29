@@ -62,8 +62,6 @@ public class InicioSesionController implements Initializable {
         }catch(IOException | ClubDAOException e) {}
         warningLabel.setText(""); 
         loginButton.disableProperty().bind(Bindings.isEmpty(textFieldUsuario.textProperty()).or(Bindings.isEmpty(passFieldPassword.textProperty())));
-        textFieldUsuario.setText("ivanator");
-        passFieldPassword.setText("Ivanator1");
     }    
 
     @FXML
