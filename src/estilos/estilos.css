@@ -1,52 +1,3 @@
-/*
- * Copyright (c) 2014, Oracle and/or its affiliates.
- * All rights reserved. Use is subject to license terms.
- *
- * This file is available and licensed under the following license:
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *  - Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  - Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the distribution.
- *  - Neither the name of Oracle Corporation nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/*******************************************************************************
- *                                                                             *
- * Embedded Styling                                                            *
- *                                                                             *
- ******************************************************************************/
-
-/*<style>
-    @import url("https://fonts.googleapis.com/css2?family=Macondo&display=swap");
-</style>*/
-
-
-
-/*******************************************************************************
- *                                                                             *
- * High Contrast Theme                                                         *
- *                                                                             *
- ******************************************************************************/
 
 .contrast {
     -app-color-hi: #5bf900;
@@ -54,8 +5,6 @@
     -app-hover: #666666;
     -fx-background-color: -app-color-lo;
 }
-
-/*-------------------------- map pin ------------------------- */
 
 .map-pin {
     -fx-shape: "M13.558,0C6.07,0,0,6.07,0,13.558s13.558,22.346,13.558,22.346s13.558-14.858,13.558-22.346S21.045,0,13.558,0z
@@ -73,8 +22,6 @@ S17.642,20.762,13.558,20.762z";
 .contrast .map-pin {
     -fx-background-color: -app-color-lo, -app-color-hi;
 }
-
-/*------------------ button, toggle buttons ------------------ */
 
 .contrast .button,
 .contrast .toggle-button {
@@ -105,8 +52,6 @@ S17.642,20.762,13.558,20.762z";
     -fx-text-fill: -app-color-hi;
 }
 
-/*-------------------------- slider -------------------------- */
-
 .contrast .slider .track {
     -fx-background-color: -app-color-hi, -app-color-lo;
     -fx-background-insets: 0, 1;    
@@ -118,8 +63,6 @@ S17.642,20.762,13.558,20.762z";
 .contrast .slider .thumb:hover {
     -fx-background-color: -app-color-hi, -app-hover;
 }
-
-/*------------------------- ListView ------------------------- */
 
 .contrast .list-view {
     -fx-background-color: -app-color-lo;
@@ -223,8 +166,12 @@ S17.642,20.762,13.558,20.762z";
 #texto{
     -fx-font-family: 'Macondo', cursive;
     -fx-font-size: 35px;
-    -fx-text-fill:#2465ff;
+    -fx-text-fill:#dbb91f;
     -fx-font-weight: 600;
+}
+#warning-text {
+    -fx-text-fill: red;
+    -fx-font-size: 10px;
 }
 
 #inicio-field{
@@ -365,5 +312,3 @@ S17.642,20.762,13.558,20.762z";
 #label.text{
     -fx-text-size: 16px;
 }
-
-

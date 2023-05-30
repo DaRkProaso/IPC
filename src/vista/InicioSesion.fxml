@@ -39,7 +39,7 @@
                         <Insets left="22.0" right="25.0" />
                      </GridPane.margin>
                   </TextField>
-                  <PasswordField fx:id="passFieldPassword" onKeyPressed="#handleKeyEntered" prefHeight="38.0" prefWidth="255.0" promptText="Contraseña" GridPane.rowIndex="3">
+                  <PasswordField id="inicio-field" fx:id="passFieldPassword" onKeyPressed="#handleKeyEntered" prefHeight="38.0" prefWidth="255.0" promptText="Contraseña" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="25.0" right="25.0" />
                      </GridPane.margin>
@@ -51,7 +51,7 @@
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                      <children>
                         <Button id="registrarse-button" fx:id="loginButton" layoutX="24.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleSesion" prefHeight="43.0" prefWidth="288.0" stylesheets="@../estilos/estilos.css" text="Iniciar Sesión" />
-                        <Label id="warning-text" fx:id="warningLabel" alignment="CENTER" layoutX="90.0" layoutY="-8.0" stylesheets="@../estilos/estilos.css" text="Label" textAlignment="CENTER" />
+                        <Label id="warning-text" fx:id="warningLabel" alignment="CENTER" layoutX="90.0" layoutY="-8.0" stylesheets="@../estilos/estilos.css" textAlignment="CENTER" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">

@@ -61,8 +61,6 @@ public class RegistroController implements Initializable {
     @FXML
     private Label telefonoWarning;
     @FXML
-    private Label warningTarjeta;
-    @FXML
     private PasswordField repContra;
     @FXML
     private PasswordField contra;
@@ -118,7 +116,7 @@ public class RegistroController implements Initializable {
         }
         String tarjetacredito = textFieldTarjeta.getText();
         if((tarjetacredito.length() != 16 || !tarjetacredito.matches("\\d+")) && tarjetacredito.length() != 0){
-            warningTarjeta.setText("Este número de tarjeta no es válido");
+            warning.setText("Este número de tarjeta no es válido");
             return;
         }
         String csvT = textFieldCSV.getText();
@@ -128,16 +126,16 @@ public class RegistroController implements Initializable {
         } 
         catch (NumberFormatException excepcion){
             if (csvT.length() != 3 && csvT.length() != 0){
-                warningTarjeta.setText("El CSV no es correcto");
+                warning.setText("El CSV no es correcto");
                 return;
             }
         }
         if (csvT.length() == 3 && tarjetacredito.length() == 0){
-            warningTarjeta.setText("Por favor proporcione un numero de tarjeta de credito");
+            warning.setText("Por favor proporcione un numero de tarjeta de credito");
             return;
         }
         else if (tarjetacredito.length() == 16 && csvT.length() == 0){
-            warningTarjeta.setText("Por favor proporcione el CSV de su tarjeta de crédito");
+            warning.setText("Por favor proporcione el CSV de su tarjeta de crédito");
             return;
         }
         club.registerMember(nombre, apellidos, telefono, nickname, password, tarjetacredito, csv, null);
