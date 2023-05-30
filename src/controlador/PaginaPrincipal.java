@@ -134,18 +134,18 @@ public class PaginaPrincipal implements Initializable {
         stage.show();
     }
     
-    class BookingListCell extends ListCell<Booking>{
+    class BookingListCell extends ListCell<Booking> {
         @Override
         protected void updateItem(Booking b, boolean empty) {
             DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("E MMM d");
-            super.updateItem(b, empty); /** Generated from (...)*/
-            if (b==null || empty) setText(null);
-            else if (b.getPaid()){
+            super.updateItem(b, empty);
+            if (b == null || empty) {
+                setText(null);
+            } else {
+                String paidStatus = b.getPaid() ? "pagado" : "no pagado";
                 setText("Reserva: " + b.getMadeForDay().format(dayFormatter) + " - " +
-                b.getCourt().getName() + " - (" + b.getFromTime() + "-" +b.getFromTime().plusHours(1) + ") - pagado");
-            }else {
-                setText("Reserva: " + b.getMadeForDay().format(dayFormatter) + " - " +
-                b.getCourt().getName() + " - (" + b.getFromTime()+ "-" +b.getFromTime().plusHours(1) + ") - no pagado");
+                        b.getCourt().getName() + " - (" + b.getFromTime() + "-" + 
+                        b.getFromTime().plusHours(1) + ") - " + paidStatus);
             }
         }
     }
@@ -165,5 +165,22 @@ public class PaginaPrincipal implements Initializable {
         imagePerfil.setImage(image);
         labelPerfil.setText("Hola, " + nickname);
         nombreClub.setText(clubP.getName());
+    }
+    
+    private Booking getBookingAtDateTime(Court court, LocalDateTime dateTime) {
+        for (Booking booking : clubP.getBookings()) {
+            if (booking.getCourt().equals(court)
+                && booking.getMadeForDay().equals(dateTime.toLocalDate())
+                && booking.getFromTime().equals(dateTime.toLocalTime())) {
+                return booking;
+            }
+        } return null;
+    }
+    private boolean hasTwoConsecutiveBookings(Court court, LocalDateTime dateTime) {
+        LocalDateTime previous2Hours = dateTime.minusHours(2);
+        LocalDateTime previousHour = dateTime.minusHours(1);
+        LocalDateTime nextHour = dateTime.plusHours(1);
+        LocalDateTime next2Hours = dateTime.plusHours(2);
+        return (getBookingAtDateTime(court, previousHour)!= null && getBookingAtDateTime(court, previous2Hours) != null) || (getBookingAtDateTime(court, nextHour) != null && getBookingAtDateTime(court, next2Hours) != null);
     }
 }
