@@ -39,11 +39,9 @@ import model.*;
  * @author jsoler
  */
 public class PaginaPrincipal implements Initializable {
-    @FXML
     private Label nombreClub;
     @FXML
     private ImageView imagePerfil;
-    @FXML
     private Label labelPerfil;
     @FXML
     private Button reservas;
@@ -102,7 +100,6 @@ public class PaginaPrincipal implements Initializable {
         reservasListView.setItems(listaObservable);
         reservasListView.setCellFactory(c -> new BookingListCell());
     }
-    @FXML
     private void ModPerfil(MouseEvent event) throws IOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
         Parent root = cargador.load();
