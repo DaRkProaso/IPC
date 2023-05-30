@@ -42,6 +42,7 @@ public class PaginaPrincipal implements Initializable {
     private Label nombreClub;
     @FXML
     private ImageView imagePerfil;
+    @FXML
     private Label labelPerfil;
     @FXML
     private Button reservas;
@@ -100,6 +101,7 @@ public class PaginaPrincipal implements Initializable {
         reservasListView.setItems(listaObservable);
         reservasListView.setCellFactory(c -> new BookingListCell());
     }
+    @FXML
     private void ModPerfil(MouseEvent event) throws IOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
         Parent root = cargador.load();
@@ -161,23 +163,5 @@ public class PaginaPrincipal implements Initializable {
     private void GetProfile(){
         imagePerfil.setImage(image);
         labelPerfil.setText("Hola, " + nickname);
-        nombreClub.setText(clubP.getName());
-    }
-    
-    private Booking getBookingAtDateTime(Court court, LocalDateTime dateTime) {
-        for (Booking booking : clubP.getBookings()) {
-            if (booking.getCourt().equals(court)
-                && booking.getMadeForDay().equals(dateTime.toLocalDate())
-                && booking.getFromTime().equals(dateTime.toLocalTime())) {
-                return booking;
-            }
-        } return null;
-    }
-    private boolean hasTwoConsecutiveBookings(Court court, LocalDateTime dateTime) {
-        LocalDateTime previous2Hours = dateTime.minusHours(2);
-        LocalDateTime previousHour = dateTime.minusHours(1);
-        LocalDateTime nextHour = dateTime.plusHours(1);
-        LocalDateTime next2Hours = dateTime.plusHours(2);
-        return (getBookingAtDateTime(court, previousHour)!= null && getBookingAtDateTime(court, previous2Hours) != null) || (getBookingAtDateTime(court, nextHour) != null && getBookingAtDateTime(court, next2Hours) != null);
     }
 }

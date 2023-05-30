@@ -134,11 +134,4 @@ public class InicioSesionController implements Initializable {
         verPistas.getScene().getWindow().hide();
         stage.show();
     }
-
-    // Método para darle al botón de inicio de sesión por teclado (mediante
-    // tecla enter)
-    @FXML
-    private void handleKeySesion(KeyEvent event) throws IOException, ClubDAOException {
-        
-    }
 }
