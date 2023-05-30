@@ -17,7 +17,7 @@
             <Image url="@../imagenes/tenis_principal.jpg" />
          </image>
       </ImageView>
-      <HBox alignment="CENTER" layoutX="408.0" prefHeight="79.0" prefWidth="270.0">
+      <HBox alignment="CENTER" layoutX="327.0" prefHeight="79.0" prefWidth="351.0">
          <children>
             <Button fx:id="gestionar" mnemonicParsing="false" onAction="#GestionarReserva" prefHeight="45.0" prefWidth="118.0" text="Gestionar Reserva">
                <HBox.margin>
@@ -26,8 +26,9 @@
             </Button>
             <Button fx:id="reservas" mnemonicParsing="false" onAction="#VerReservas" prefHeight="45.0" prefWidth="95.0" text="Ver Reservas">
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="15.0" />
                </HBox.margin></Button>
+            <Button fx:id="sesion" mnemonicParsing="false" onAction="#CerrarSesion" prefHeight="45.0" prefWidth="95.0" text="Cerrar Sesión" />
          </children>
       </HBox>
       <Label fx:id="nombreClub" alignment="CENTER" contentDisplay="CENTER" layoutY="207.0" prefHeight="196.0" prefWidth="375.0" textAlignment="CENTER" textOverrun="CLIP">
@@ -37,6 +38,6 @@
       </Label>
       <ImageView fx:id="imagePerfil" fitHeight="94.0" fitWidth="101.0" onMouseClicked="#ModPerfil" pickOnBounds="true" />
       <Label fx:id="labelPerfil" layoutX="110.0" layoutY="40.0" />
-      <ListView fx:id="reservasListView" layoutX="375.0" layoutY="94.0" prefHeight="263.0" prefWidth="301.0" />
+      <ListView fx:id="reservasListView" layoutX="348.0" layoutY="94.0" prefHeight="235.0" prefWidth="328.0" />
    </children>
 </Pane>

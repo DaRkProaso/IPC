@@ -62,7 +62,7 @@
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                      <children>
-                        <Button fx:id="verPistas" layoutX="23.0" layoutY="13.0" mnemonicParsing="false" onAction="#verPistas" prefHeight="46.0" prefWidth="288.0" text="Ver Pistas" />
+                        <Button id="registrarse-button" fx:id="verPistas" layoutX="23.0" layoutY="13.0" mnemonicParsing="false" onAction="#verPistas" prefHeight="46.0" prefWidth="288.0" text="Ver Pistas" />
                      </children>
                   </Pane>
                </children>

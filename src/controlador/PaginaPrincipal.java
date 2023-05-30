@@ -59,6 +59,8 @@ public class PaginaPrincipal implements Initializable {
     private String nickname, password;
     
     private ObservableList<Booking> listaObservable = null;
+    @FXML
+    private Button sesion;
     
     
     @Override
@@ -92,32 +94,11 @@ public class PaginaPrincipal implements Initializable {
         }
         List<Booking> reservasUsuario = clubP.getUserBookings(member.getNickName());
         ArrayList<Booking> misReservas = new ArrayList<>(reservasUsuario);
-        
-        
-        
-        listaObservable = setListViewItems(misReservas);
-        
+        Collections.sort(misReservas, (Booking booking1, Booking booking2) -> booking2.getBookingDate().compareTo(booking1.getBookingDate()));
+        List<Booking> diezPrimeras = misReservas.subList(0, Math.min(10, misReservas.size()));
+        listaObservable = FXCollections.observableList(diezPrimeras);
         reservasListView.setItems(listaObservable);
         reservasListView.setCellFactory(c -> new BookingListCell());
-    }
-    private ObservableList<Booking> setListViewItems(ArrayList<Booking> listaReservas){
-        ArrayList<Booking> aux = listaReservas;
-        
-        
-        Collections.sort(aux, new Comparator<Booking>() {
-            @Override
-            public int compare(Booking booking1, Booking booking2) {
-                return booking2.getBookingDate().compareTo(booking1.getBookingDate());
-            }
-        });
-        
-        for(int i = listaReservas.size(); i >= 9; i--){
-                aux.remove(i);
-        }
-        
-        ObservableList<Booking> res = FXCollections.observableList(aux);
-        return res;
-        //reservasListView.setItems(aux);
     }
     
     @FXML
@@ -136,6 +117,20 @@ public class PaginaPrincipal implements Initializable {
         stage.setResizable(false);
         stage.show();
 
+    }
+
+    @FXML
+    private void CerrarSesion(ActionEvent event) throws IOException{
+        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/InicioSesion.fxml"));
+        Parent root = cargador.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Club de Tenis GreenBall");
+        stage.setScene(scene);
+        Image image2 = new Image("/imagenes/Icono.png");
+        stage.getIcons().add(image2);
+        sesion.getScene().getWindow().hide();
+        stage.show();
     }
     
     class BookingListCell extends ListCell<Booking>{

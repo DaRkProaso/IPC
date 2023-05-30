@@ -288,8 +288,12 @@ public class VistaPerfilController implements Initializable {
     private void handleImgChange(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar imagen");
+        String userHomeDir = System.getProperty("user.home");
+        String downloadsDirPath = userHomeDir + File.separator + "Downloads";
+        File downloadsDir = new File(downloadsDirPath);
+        fileChooser.setInitialDirectory(downloadsDir);
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Imágenes", ".jpg", ".jpeg", "*.png")
+            new FileChooser.ExtensionFilter("Imágenes", ".jpg", ".jpeg", "*.png")
         );
         File selectedFile = fileChooser.showOpenDialog(buttonImage.getScene().getWindow());
         if (selectedFile != null) {

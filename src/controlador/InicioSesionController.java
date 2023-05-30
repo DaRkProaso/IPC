@@ -60,7 +60,7 @@ public class InicioSesionController implements Initializable {
         try{
             club = getInstance();
         }catch(IOException | ClubDAOException e) {}
-        warningLabel.setText(""); 
+        warningLabel.setText("");
         loginButton.disableProperty().bind(Bindings.isEmpty(textFieldUsuario.textProperty()).or(Bindings.isEmpty(passFieldPassword.textProperty())));
     }    
 
