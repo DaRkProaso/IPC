@@ -29,6 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -126,20 +127,16 @@ public class VistaPerfilController implements Initializable {
         
         imageBox.setLayoutX(imageAvatar.getFitWidth());
         imageBox.setLayoutY(imageAvatar.getFitHeight());
-        //imageBox.hide();
         imageAvatar.setClip(clip);
         
         SnapshotParameters parameters = new SnapshotParameters();
         parameters.setFill(Color.TRANSPARENT);
-        WritableImage image = imageAvatar.snapshot(parameters, null);
-        
         imageBox.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ImagenItem> obs, ImagenItem oldVal, ImagenItem newVal) -> {
             imageAvatar.setImage(imageBox.getSelectionModel().getSelectedItem().getImagen());
             try {
                 member.setImage(imageAvatar.getImage());
                 imageAvatar.setEffect(null);
             } catch (Exception ex) {
-                
                 Logger.getLogger(VistaPerfilController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });     
@@ -150,7 +147,8 @@ public class VistaPerfilController implements Initializable {
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Actualizar contraseña");
         dialog.setHeaderText("Introduce la nueva contraseña");
-        dialog.setContentText("Nueva Contraseña:");
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPromptText("Nueva Contraseña");
         dialog.showAndWait();
         if (dialog.getResult() == null) return;
         if(!PASSPATTERN.matcher(password).matches()){
@@ -171,6 +169,7 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce o actualiza tu tarjeta de crédito");
         dialog.setContentText("Tarjeta:");
         dialog.showAndWait();
+        if (dialog.getResult() == null) return;
         if (dialog.getResult().equals("")) return;
         else if(dialog.getResult().length() != 16 && dialog.getResult().matches("\\d+")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -180,11 +179,13 @@ public class VistaPerfilController implements Initializable {
             alert.showAndWait();
             return;
         }
+        tLabel.setText(dialog.getResult());
         TextInputDialog dialog2 = new TextInputDialog("");
         dialog2.setTitle("Actualizar CSV");
         dialog2.setHeaderText("Introduce o actualiza tu CSV:");
         dialog2.setContentText("CSV:");
         dialog2.showAndWait();
+        if (dialog2.getResult() == null) return;
         if (dialog2.getResult().equals("")) return; 
         if(dialog2.getResult().length() != 3 && dialog2.getResult().matches("\\d+")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -194,7 +195,6 @@ public class VistaPerfilController implements Initializable {
             alert.showAndWait();
             return;
         }
-        tLabel.setText(dialog.getResult());
         csvLabel.setText(dialog2.getResult());
     }
 
@@ -205,15 +205,28 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce tu nombre");
         dialog.setContentText("Nombre:");
         dialog.showAndWait();
-        if (dialog.getResult().equals("")) return;
+        if (null == dialog.getResult()) return;
+        else switch (dialog.getResult()) {
+            case "":
+                return;
+            default:
+                nombre = dialog.getResult();
+                nombreLabel.setText(nombre + " "+ apellidos);
+                break;
+        }
         TextInputDialog dialog2 = new TextInputDialog("");
         dialog2.setTitle("Actualizar apellidos");
         dialog2.setHeaderText("Introduce tus apellidos");
         dialog2.setContentText("Apellidos:");
         dialog2.showAndWait();
-        if (dialog2.getResult().equals("")) return;
-        nombre = dialog.getResult();
-        apellidos = dialog2.getResult();
+        if (null == dialog2.getResult()) return;
+        else switch (dialog2.getResult()) {
+            case "":
+                return;
+            default:
+                apellidos = dialog2.getResult();
+                break;
+        }
         nombreLabel.setText(nombre + " "+ apellidos);
     }
 
@@ -224,8 +237,9 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce tu número de teléfono");
         dialog.setContentText("Teléfono:");
         dialog.showAndWait();
-        if (dialog.getResult().equals("")) return;
-        if(dialog.getResult().length() != 9 && dialog.getResult().matches("\\d+")){
+        if (dialog.getResult() == null) return;
+        else if (dialog.getResult().equals("")) return;
+        else if(dialog.getResult().length() != 9 && dialog.getResult().matches("\\d+")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error al actualizar el teléfono");
             alert.setHeaderText("Ha introducido un número no valido");
