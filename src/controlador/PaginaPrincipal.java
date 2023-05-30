@@ -7,7 +7,9 @@ package controlador;
 
 import java.net.URL;
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,7 +93,7 @@ public class PaginaPrincipal implements Initializable {
             reservasListView.setVisible(false);
         } else {
             reservasListView.setVisible(true);
-        }
+        }    
         List<Booking> reservasUsuario = clubP.getUserBookings(member.getNickName());
         ArrayList<Booking> misReservas = new ArrayList<>(reservasUsuario);
         Collections.sort(misReservas, (Booking booking1, Booking booking2) -> booking2.getBookingDate().compareTo(booking1.getBookingDate()));
@@ -100,7 +102,6 @@ public class PaginaPrincipal implements Initializable {
         reservasListView.setItems(listaObservable);
         reservasListView.setCellFactory(c -> new BookingListCell());
     }
-    
     @FXML
     private void ModPerfil(MouseEvent event) throws IOException{
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/VistaPerfil.fxml"));
@@ -141,10 +142,10 @@ public class PaginaPrincipal implements Initializable {
             if (b==null || empty) setText(null);
             else if (b.getPaid()){
                 setText("Reserva: " + b.getMadeForDay().format(dayFormatter) + " - " +
-                b.getCourt().getName() + " - " + b.getFromTime() + " - " +b.getFromTime().plusHours(1) + " - pagado");
+                b.getCourt().getName() + " - (" + b.getFromTime() + "-" +b.getFromTime().plusHours(1) + ") - pagado");
             }else {
                 setText("Reserva: " + b.getMadeForDay().format(dayFormatter) + " - " +
-                b.getCourt().getName() + " - " + b.getFromTime()+ " - " +b.getFromTime().plusHours(1) + " - no pagado");
+                b.getCourt().getName() + " - (" + b.getFromTime()+ "-" +b.getFromTime().plusHours(1) + ") - no pagado");
             }
         }
     }

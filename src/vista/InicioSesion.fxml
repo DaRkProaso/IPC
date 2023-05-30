@@ -39,7 +39,7 @@
                         <Insets left="22.0" right="25.0" />
                      </GridPane.margin>
                   </TextField>
-                  <PasswordField fx:id="passFieldPassword" prefHeight="38.0" prefWidth="255.0" promptText="Contraseña" GridPane.rowIndex="3">
+                  <PasswordField fx:id="passFieldPassword" onKeyPressed="#handleKeyEntered" prefHeight="38.0" prefWidth="255.0" promptText="Contraseña" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="25.0" right="25.0" />
                      </GridPane.margin>
