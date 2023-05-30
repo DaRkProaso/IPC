@@ -21,6 +21,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import static javafx.scene.input.KeyCode.ENTER;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.*;
@@ -133,5 +134,12 @@ public class InicioSesionController implements Initializable {
         stage.getIcons().add(image);
         verPistas.getScene().getWindow().hide();
         stage.show();
+    }
+
+    // Método para darle al botón de inicio de sesión por teclado (mediante
+    // tecla enter)
+    @FXML
+    private void handleKeySesion(KeyEvent event) throws IOException, ClubDAOException {
+        
     }
 }

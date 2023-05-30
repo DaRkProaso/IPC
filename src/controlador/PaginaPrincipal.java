@@ -7,7 +7,9 @@ package controlador;
 
 import java.net.URL;
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,14 +85,19 @@ public class PaginaPrincipal implements Initializable {
 
     @FXML
     private void VerReservas(ActionEvent event) throws IOException{
-        
+        if (reservasListView.isVisible()) {
+            reservasListView.setVisible(false);
+        } else {
+            reservasListView.setVisible(true);
+        }
+    
         List<Booking> reservasUsuario = clubP.getUserBookings(member.getNickName());
-        ArrayList<Booking> misReservas = new ArrayList<>(reservasUsuario);
+        List<Booking> reservasLimitadas = reservasUsuario.subList(0, Math.min(10, reservasUsuario.size()));
+        
+        ArrayList<Booking> misReservas = new ArrayList<>(reservasLimitadas);
         listaObservable = FXCollections.observableArrayList(misReservas);
         reservasListView.setItems(listaObservable);
         reservasListView.setCellFactory(c -> new BookingListCell());
-        
-        reservasListView.setVisible(true);
     }
 
     @FXML
@@ -119,10 +126,10 @@ public class PaginaPrincipal implements Initializable {
             if (b==null || empty) setText(null);
             else if (b.getPaid()){
                 setText("Reserva: " + b.getMadeForDay().format(dayFormatter) + " - " +
-                b.getCourt().getName() + " - " + b.getFromTime() + " - " +b.getFromTime().plusHours(1) + " - pagado");
+                b.getCourt().getName() + " - (" + b.getFromTime() + "-" +b.getFromTime().plusHours(1) + ") - pagado");
             }else {
                 setText("Reserva: " + b.getMadeForDay().format(dayFormatter) + " - " +
-                b.getCourt().getName() + " - " + b.getFromTime()+ " - " +b.getFromTime().plusHours(1) + " - no pagado");
+                b.getCourt().getName() + " - (" + b.getFromTime()+ "-" +b.getFromTime().plusHours(1) + ") - no pagado");
             }
         }
     }
