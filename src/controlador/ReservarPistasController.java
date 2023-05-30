@@ -223,6 +223,7 @@ public class ReservarPistasController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Club de Tenis GreenBall");
         stage.setScene(scene);
+        stage.setResizable(false);
         Image image = new Image("/imagenes/Icono.png");
         stage.getIcons().add(image);
         volver.getScene().getWindow().hide();
