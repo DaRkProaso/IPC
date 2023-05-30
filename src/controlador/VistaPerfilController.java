@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.io.File;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,8 +33,10 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.*;
 
@@ -68,15 +72,19 @@ public class VistaPerfilController implements Initializable {
     @FXML
     private Button buttonNameSurname;
     @FXML
-    private ChoiceBox<Image> imageBox;
+    private ChoiceBox<ImagenItem> imageBox;
     @FXML
     private Button buttonExit;
     @FXML
     private Button buttonImage;
     
+    private static final String PASSCHECK = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$";
+    
+    private static final Pattern PASSPATTERN= Pattern.compile(PASSCHECK);
+    
     private Club clubV;
-    public ObservableList<Image> listaObservable = null;
-    private Circle clip = new Circle(60);
+    public ObservableList<ImagenItem> listaObservable = null;
+    private final Circle clip = new Circle(90);
 
     /**
      * Initializes the controller class.
@@ -85,45 +93,48 @@ public class VistaPerfilController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         passwordLabel.setText("··········");
         
-        List<Image> avatares = new ArrayList<>();
+        List<ImagenItem> avatares = new ArrayList<>();
         
-        avatares.add(new Image("imagenes/avatars/men.png"));
-        avatares.add(new Image("imagenes/avatars/men2.png"));
-        avatares.add(new Image("imagenes/avatars/men3.png"));
-        avatares.add(new Image("imagenes/avatars/men4.png"));
-        avatares.add(new Image("imagenes/avatars/men5.png"));
-        avatares.add(new Image("imagenes/avatars/woman.png"));
-        avatares.add(new Image("imagenes/avatars/woman2.png"));
-        avatares.add(new Image("imagenes/avatars/woman3.png"));
-        avatares.add(new Image("imagenes/avatars/woman4.png"));
-        avatares.add(new Image("imagenes/avatars/woman5.png"));
-        avatares.add(new Image("imagenes/avatars/woman6.png"));
-        
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/default.png"), "default"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/men.png"), "hombre1"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/men2.png"), "hombre2"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/men3.png"), "hombre3"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/men4.png"), "hombre4"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/men5.png"), "hombre5"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/woman.png"), "mujer1"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/woman2.png"), "mujer2"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/woman3.png"), "mujer3"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/woman4.png"), "mujer4"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/woman5.png"), "mujer5"));
+        avatares.add(new ImagenItem(new Image("imagenes/avatars/woman6.png"), "mujer6"));
         
         listaObservable = FXCollections.observableArrayList(avatares);
         
         
         //Clip es el circulo que rodea la imagen para que no se vea en forma de cuadrado.
-        clip.setCenterX(imageAvatar.getFitWidth()/3 - 5);
-        clip.setCenterY(imageAvatar.getFitHeight()/2);
+//        clip.setCenterX(imageAvatar.getFitWidth()/2 - 5);
+//        clip.setCenterY(imageAvatar.getFitHeight()/2);
         clip.setId("clip-b");
         clip.getStyleClass().add("clip-b");
         clip.setStyle("-fx-border-color: grey;");
         clip.setStyle("-fx-border-width: 4px;");
         
+        clip.setLayoutX( imageAvatar.getX() + (imageAvatar.getFitWidth()/2) - 20);
+        clip.setLayoutY(imageAvatar.getY() + imageAvatar.getFitHeight()/2);
         
         imageBox.setItems(listaObservable);
         
         imageBox.setLayoutX(imageAvatar.getFitWidth());
         imageBox.setLayoutY(imageAvatar.getFitHeight());
-        imageBox.hide();
+        //imageBox.hide();
         imageAvatar.setClip(clip);
+        
         SnapshotParameters parameters = new SnapshotParameters();
         parameters.setFill(Color.TRANSPARENT);
         WritableImage image = imageAvatar.snapshot(parameters, null);
         
-        imageBox.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Image> obs, Image oldVal, Image newVal) -> {
-            imageAvatar.setImage(imageBox.getSelectionModel().getSelectedItem());
+        imageBox.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ImagenItem> obs, ImagenItem oldVal, ImagenItem newVal) -> {
+            imageAvatar.setImage(imageBox.getSelectionModel().getSelectedItem().getImagen());
             try {
                 member.setImage(imageAvatar.getImage());
                 imageAvatar.setEffect(null);
@@ -141,6 +152,15 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce la nueva contraseña");
         dialog.setContentText("Nueva Contraseña:");
         dialog.showAndWait();
+        if (dialog.getResult() == null) return;
+        if(!PASSPATTERN.matcher(password).matches()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error al actualizar la contraseña");
+            alert.setHeaderText("Ha introducido una contraseña incorrecta");
+            alert.setContentText("La contraseña ha de tener 6 carácteres, incluyendo minimo una mayúscula y un número");
+            alert.showAndWait();
+            return;
+        }
         password = dialog.getResult();
     }
 
@@ -151,7 +171,8 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce o actualiza tu tarjeta de crédito");
         dialog.setContentText("Tarjeta:");
         dialog.showAndWait();
-        if(dialog.getResult().length() != 16 && dialog.getResult().matches("\\d+")){
+        if (dialog.getResult().equals("")) return;
+        else if(dialog.getResult().length() != 16 && dialog.getResult().matches("\\d+")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error al actualizar la tarjeta");
             alert.setHeaderText("Ha introducido una tarjeta no válida");
@@ -164,6 +185,7 @@ public class VistaPerfilController implements Initializable {
         dialog2.setHeaderText("Introduce o actualiza tu CSV:");
         dialog2.setContentText("CSV:");
         dialog2.showAndWait();
+        if (dialog2.getResult().equals("")) return; 
         if(dialog2.getResult().length() != 3 && dialog2.getResult().matches("\\d+")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error al actualizar la tarjeta");
@@ -183,11 +205,13 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce tu nombre");
         dialog.setContentText("Nombre:");
         dialog.showAndWait();
+        if (dialog.getResult().equals("")) return;
         TextInputDialog dialog2 = new TextInputDialog("");
         dialog2.setTitle("Actualizar apellidos");
         dialog2.setHeaderText("Introduce tus apellidos");
         dialog2.setContentText("Apellidos:");
         dialog2.showAndWait();
+        if (dialog2.getResult().equals("")) return;
         nombre = dialog.getResult();
         apellidos = dialog2.getResult();
         nombreLabel.setText(nombre + " "+ apellidos);
@@ -200,6 +224,7 @@ public class VistaPerfilController implements Initializable {
         dialog.setHeaderText("Introduce tu número de teléfono");
         dialog.setContentText("Teléfono:");
         dialog.showAndWait();
+        if (dialog.getResult().equals("")) return;
         if(dialog.getResult().length() != 9 && dialog.getResult().matches("\\d+")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error al actualizar el teléfono");
@@ -240,7 +265,8 @@ public class VistaPerfilController implements Initializable {
         member.setName(nombre);
         member.setSurname(apellidos);
         member.setCreditCard(tLabel.getText());
-        member.setSvc(parseInt(csvLabel.getText()));
+        if (!csvLabel.getText().equals("")){member.setSvc(parseInt(csvLabel.getText()));}
+        else{member.setSvc(0);}
         member.setPassword(password);
         member.setImage(imageAvatar.getImage());
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipal.fxml"));
@@ -260,5 +286,38 @@ public class VistaPerfilController implements Initializable {
 
     @FXML
     private void handleImgChange(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar imagen");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", ".jpg", ".jpeg", "*.png")
+        );
+        File selectedFile = fileChooser.showOpenDialog(buttonImage.getScene().getWindow());
+        if (selectedFile != null) {
+            Image selectedImage = new Image(selectedFile.toURI().toString());
+            imageAvatar.setImage(selectedImage);
+        }
+    }
+    
+    public class ImagenItem {
+        private Image imagen;
+        private String nombre;
+
+        public ImagenItem(Image imagen, String nombre) {
+            this.imagen = imagen;
+            this.nombre = nombre;
+        }
+
+        public Image getImagen() {
+            return imagen;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        @Override
+        public String toString() {
+            return nombre;
+        }
     }
 }
