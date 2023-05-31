@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -30,9 +32,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label id="texto" alignment="CENTER" contentDisplay="CENTER" prefHeight="82.0" prefWidth="254.0" stylesheets="@../estilos/estilos.css" text="CLUB DE TENIS" textAlignment="CENTER" textFill="#e8e826" GridPane.halignment="CENTER">
+                  <Label id="texto" alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="350.0" style="-fx-background-color: darkgreen;" stylesheets="@../estilos/estilos.css" textAlignment="CENTER" textFill="#e8e826" GridPane.halignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="30.0" />
+                        <Font name="Arial Bold" size="30.0" />
                      </font></Label>
                   <TextField id="inicio-field" fx:id="textFieldUsuario" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyEntered" prefHeight="38.0" prefWidth="255.0" promptText="Nombre de Usuario" stylesheets="@../estilos/estilos.css" GridPane.rowIndex="2">
                      <GridPane.margin>
@@ -44,7 +46,7 @@
                         <Insets left="25.0" right="25.0" />
                      </GridPane.margin>
                   </PasswordField>
-                  <Label id="texto-segundo" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="322.0" stylesheets="@../estilos/estilos.css" text="INICIO DE SESIÓN" GridPane.rowIndex="1">
+                  <Label id="texto-segundo" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="322.0" stylesheets="@../estilos/estilos.css" text="INICIO DE SESIÓN" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font></Label>
@@ -56,15 +58,23 @@
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                      <children>
-                        <Label layoutX="106.0" layoutY="6.0" text="¿No tienes una cuenta?" />
+                        <Label layoutX="96.0" layoutY="4.0" text="¿No tienes una cuenta?">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
                         <Button id="registrarse-button" fx:id="registerButton" layoutX="24.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlePopupRegister" prefHeight="43.0" prefWidth="288.0" stylesheets="@../estilos/estilos.css" text="Registrarse" />
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                      <children>
-                        <Button id="registrarse-button" fx:id="verPistas" layoutX="23.0" layoutY="13.0" mnemonicParsing="false" onAction="#verPistas" prefHeight="46.0" prefWidth="288.0" text="Ver Pistas" />
+                        <Button id="VerPistas-button" fx:id="verPistas" layoutX="23.0" layoutY="13.0" mnemonicParsing="false" onAction="#verPistas" prefHeight="46.0" prefWidth="288.0" text="Ver Pistas" />
                      </children>
                   </Pane>
+                  <ImageView fitHeight="89.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@../imagenes/greenBall.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
