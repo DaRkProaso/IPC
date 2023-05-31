@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,10 +64,12 @@ public class PaginaPrincipal implements Initializable {
     private ObservableList<Booking> listaObservable = null;
     @FXML
     private Button sesion;
+    @FXML
+    private ImageView imagePrincipal;
     
     
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
         reservasListView.setVisible(false);
     } 
     
@@ -88,6 +92,11 @@ public class PaginaPrincipal implements Initializable {
 
     @FXML
     private void VerReservas(ActionEvent event) throws IOException{
+        if (imagePrincipal.isVisible()) {
+            imagePrincipal.setVisible(false);
+        } else {
+            imagePrincipal.setVisible(true);
+        } 
         if (reservasListView.isVisible()) {
             reservasListView.setVisible(false);
         } else {

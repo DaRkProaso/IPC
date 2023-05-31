@@ -61,7 +61,10 @@ public class InicioSesionController implements Initializable {
             club = getInstance();
         }catch(IOException | ClubDAOException e) {}
         warningLabel.setText("");
-        loginButton.disableProperty().bind(Bindings.isEmpty(textFieldUsuario.textProperty()).or(Bindings.isEmpty(passFieldPassword.textProperty())));
+        loginButton.disableProperty().bind(Bindings.isEmpty(textFieldUsuario.
+                textProperty()).or(Bindings.isEmpty(passFieldPassword.textProperty())));
+        textFieldUsuario.setText("ivanator");
+        passFieldPassword.setText("Ivanator1");
     }    
 
     @FXML
@@ -114,6 +117,16 @@ public class InicioSesionController implements Initializable {
             Image image = new Image("/imagenes/Icono.png");
             stage.getIcons().add(image);
             loginButton.getScene().getWindow().hide();
+            
+            stage.setResizable(true);
+            double minWidth = 650; // Ancho mínimo deseado
+            double minHeight = 450; // Alto mínimo deseado
+            double maxWidth = 850;
+            double maxHeight = 650;
+            stage.setMinWidth(minWidth); // Establecer ancho mínimo
+            stage.setMinHeight(minHeight); // Establecer alto mínimo
+            stage.setMaxWidth(maxWidth);
+            stage.setMaxHeight(maxHeight);
             stage.show();
         }
         else {warningLabel.setText("Usuario o contraseña incorecta");}

@@ -1,0 +1,68 @@
+
+.time-slot-libre {
+    -fx-background-color: white, lightgreen ;
+    -fx-background-insets: 0, 1 1 0 0 ;
+    -fx-cursor: hand;
+}
+
+.time-slot{
+    -fx-background-color: white, #ed4545 ;
+    -fx-background-insets: 0, 1 1 0 0 ;
+    -fx-cursor: hand;
+}
+
+.time-slot-libre:selected {
+    -fx-background-color: #579efa;
+}
+
+.time-slot:selected {
+    -fx-background-color: #579efa;
+}
+
+.date-picker > .text-field {
+    -fx-text-fill: blue;
+}
+
+.root {
+    -fx-background-color: #f0f8ff;
+}
+
+.tab-pane {
+    -fx-tab-min-width: 80px;
+}
+
+.tab {
+    -fx-background-color: #add8e6;
+    -fx-text-fill: #00008b;
+}
+
+.tab:selected {
+    -fx-background-color: #b0e0e6;
+}
+
+.tab:hover {
+    -fx-background-color: #87cefa;
+}
+
+.label {
+    -fx-text-fill: #00008b;
+}
+
+.grid-pane {
+    -fx-background-color: #e6e6fa;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+.button {
+    -fx-background-color: #add8e6;
+    -fx-text-fill: #00008b;
+}
+
+.button:hover {
+    -fx-background-color: #87cefa;
+}
+
+.button:pressed {
+    -fx-background-color: #b0e0e6;
+}
