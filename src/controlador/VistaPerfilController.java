@@ -124,9 +124,6 @@ public class VistaPerfilController implements Initializable {
         clip.setLayoutY(imageAvatar.getY() + imageAvatar.getFitHeight()/2);
         
         imageBox.setItems(listaObservable);
-        
-        imageBox.setLayoutX(imageAvatar.getFitWidth());
-        imageBox.setLayoutY(imageAvatar.getFitHeight());
         imageAvatar.setClip(clip);
         
         SnapshotParameters parameters = new SnapshotParameters();

@@ -63,8 +63,6 @@ public class InicioSesionController implements Initializable {
         warningLabel.setText("");
         loginButton.disableProperty().bind(Bindings.isEmpty(textFieldUsuario.
                 textProperty()).or(Bindings.isEmpty(passFieldPassword.textProperty())));
-        textFieldUsuario.setText("ivanator");
-        passFieldPassword.setText("Ivanator1");
     }    
 
     @FXML
