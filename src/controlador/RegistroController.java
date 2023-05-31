@@ -67,8 +67,6 @@ public class RegistroController implements Initializable {
     @FXML
     private Label warning;
     
-    private Member member;
-    
     private Club club;
     
     /**
@@ -83,6 +81,7 @@ public class RegistroController implements Initializable {
         }
         catch(IOException | ClubDAOException e){}
        registerInputButton.disableProperty().bind(Bindings.isEmpty(nombreField.textProperty()).or(Bindings.isEmpty(apellidosField.textProperty())).or(Bindings.isEmpty(contra.textProperty())).or(Bindings.isEmpty(repContra.textProperty())).or(Bindings.isEmpty(textFieldTF.textProperty())));
+       warning.setText(""); telefonoWarning.setText(""); warningPass.setText(""); warningPass.setWrapText(true);warning.setWrapText(true);
     }
 
     @FXML
@@ -91,31 +90,37 @@ public class RegistroController implements Initializable {
         String apellidos = apellidosField.getText();
         String nickname = textFieldUsuario.getText();
         if(club.existsLogin(nickname)){
+            warning.setText(""); telefonoWarning.setText(""); warningPass.setText("");
             warning.setText("Este usuario ya esta registrado");
         }
         String password = contra.getText();
         if (!PASSPATTERN.matcher(password).matches()) {
+            warning.setText(""); telefonoWarning.setText(""); warningPass.setText("");
             warningPass.setText("La contraseña debe contener 6 o más carácteres, formados de letras y números");
             return;
         }
         if(!password.equals(repContra.getText())){
+            warning.setText(""); telefonoWarning.setText(""); warningPass.setText("");
             warningPass.setText("Las contraseñas no coinciden");
             
             return;
         }
         String telefono = textFieldTF.getText();
         if(telefono.length() != 9){
+            warning.setText(""); telefonoWarning.setText(""); warningPass.setText("");
             telefonoWarning.setText("Este telefono no es válido");
             return;
         }
         try {
             Integer.parseInt(telefono);
         } catch (NumberFormatException excepcion) {
+            warning.setText(""); telefonoWarning.setText(""); warningPass.setText("");
             telefonoWarning.setText("Este telefono no es válido");
             return;
         }
         String tarjetacredito = textFieldTarjeta.getText();
         if((tarjetacredito.length() != 16 || !tarjetacredito.matches("\\d+")) && tarjetacredito.length() != 0){
+            warning.setText(""); telefonoWarning.setText(""); warningPass.setText("");
             warning.setText("Este número de tarjeta no es válido");
             return;
         }
@@ -124,18 +129,20 @@ public class RegistroController implements Initializable {
         try {
             csv = parseInt(textFieldCSV.getText());
         } 
-        catch (NumberFormatException excepcion){
-            if (csvT.length() != 3 && csvT.length() != 0){
-                warning.setText("El CSV no es correcto");
-                return;
-            }
-        }
-        if (csvT.length() == 3 && tarjetacredito.length() == 0){
-            warning.setText("Por favor proporcione un numero de tarjeta de credito");
+        catch (NumberFormatException excepcion){}
+        if (csvT.length() != 3 && csvT.length() != 0){
+            warning.setText(""); telefonoWarning.setText(""); warningPass.setText("");
+            warning.setText("El CSV no es correcto");
             return;
         }
-        else if (tarjetacredito.length() == 16 && csvT.length() == 0){
-            warning.setText("Por favor proporcione el CSV de su tarjeta de crédito");
+        if (csvT.length() == 3 && tarjetacredito.length() != 16){
+            warning.setText(""); telefonoWarning.setText(""); warningPass.setText("");
+            warning.setText("Por favor proporcione un numero de tarjeta válido");
+            return;
+        }
+        else if (tarjetacredito.length() == 16 && csvT.length() != 3){
+            warning.setText(""); telefonoWarning.setText(""); warningPass.setText("");
+            warning.setText("Por favor proporcione un CSV válido");
             return;
         }
         club.registerMember(nombre, apellidos, telefono, nickname, password, tarjetacredito, csv, null);

@@ -34,7 +34,7 @@
             </HBox>
          </children>
       </VBox>
-      <ScrollPane prefHeight="538.0" prefWidth="286.0" style="-fx-background-color: white;">
+      <ScrollPane prefHeight="538.0" prefWidth="286.0">
          <content>
             <Pane id="pane-a" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="345.0">
                <children>
@@ -75,20 +75,20 @@
                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                            <children>
                               <TextField id="inicio-field" fx:id="textFieldTF" layoutX="27.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="253.0" promptText="Telefono*" />
-                              <Label id="warning-text" fx:id="warningPass" layoutY="6.0" />
+                              <Label id="warning-text" fx:id="warningPass" layoutX="24.0" layoutY="-16.0" prefHeight="45.0" prefWidth="298.0" />
                            </children>
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                            <children>
                               <TextField id="inicio-field" fx:id="textFieldTarjeta" layoutX="28.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="43.0" prefWidth="255.0" promptText="T. Crédito (16)" />
-                              <TextField id="inicio-field" fx:id="textFieldCSV" alignment="CENTER" layoutX="102.0" layoutY="65.0" prefHeight="37.0" prefWidth="107.0" promptText="CSV" />
+                              <TextField id="inicio-field" fx:id="textFieldCSV" alignment="CENTER" layoutX="102.0" layoutY="68.0" prefHeight="37.0" prefWidth="107.0" promptText="CSV" />
                               <Label id="warning-text" fx:id="telefonoWarning" layoutX="38.0" layoutY="-8.0" />
                            </children>
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                            <children>
                               <Button id="registrarse-button" fx:id="registerInputButton" layoutX="24.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleRegister" prefHeight="43.0" prefWidth="288.0" text="Registrarse" />
-                              <Label id="warning-text" fx:id="warning" layoutX="140.0" layoutY="17.0" textFill="RED" />
+                              <Label id="warning-text" fx:id="warning" layoutX="24.0" prefHeight="37.0" prefWidth="300.0" text="warning" />
                            </children>
                         </Pane>
                         <Pane prefHeight="118.0" prefWidth="335.0" GridPane.rowIndex="6">

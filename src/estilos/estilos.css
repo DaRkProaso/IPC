@@ -157,11 +157,11 @@ S17.642,20.762,13.558,20.762z";
     -fx-background-color: blueviolet;
 }
 .scrollPane:vertical {
-    -fx-background-color:  #4B6283;
+    -fx-background-color:  #f0f8ff;
 }
 
 #scroll2:hover{
-    background-color: darkblue;
+    background-color: #f0f8ff;
 }
 #texto{
     -fx-font-family: 'Macondo', cursive;
@@ -171,7 +171,7 @@ S17.642,20.762,13.558,20.762z";
 }
 #warning-text {
     -fx-text-fill: red;
-    -fx-font-size: 10px;
+    -fx-font-size: 13px;
 }
 
 #inicio-field{
@@ -317,7 +317,7 @@ S17.642,20.762,13.558,20.762z";
     -fx-background-color: opaque;
 }
 #pane-a{
-    -fx-background-color: #6189C3;
+    -fx-background-color: #f0f8ff;
 }
 #label.text{
     -fx-text-size: 16px;
