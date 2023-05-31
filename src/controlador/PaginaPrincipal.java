@@ -136,6 +136,7 @@ public class PaginaPrincipal implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Club de Tenis GreenBall");
         stage.setScene(scene);
+        stage.setResizable(false);
         Image image2 = new Image("/imagenes/Icono.png");
         stage.getIcons().add(image2);
         sesion.getScene().getWindow().hide();

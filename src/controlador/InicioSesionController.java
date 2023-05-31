@@ -114,17 +114,8 @@ public class InicioSesionController implements Initializable {
             stage.setScene(scene);
             Image image = new Image("/imagenes/Icono.png");
             stage.getIcons().add(image);
+            stage.setResizable(false);
             loginButton.getScene().getWindow().hide();
-            
-            stage.setResizable(true);
-            double minWidth = 650; // Ancho mínimo deseado
-            double minHeight = 450; // Alto mínimo deseado
-            double maxWidth = 850;
-            double maxHeight = 650;
-            stage.setMinWidth(minWidth); // Establecer ancho mínimo
-            stage.setMinHeight(minHeight); // Establecer alto mínimo
-            stage.setMaxWidth(maxWidth);
-            stage.setMaxHeight(maxHeight);
             stage.show();
         }
         else {warningLabel.setText("Usuario o contraseña incorecta");}
@@ -140,6 +131,7 @@ public class InicioSesionController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Club de Tenis " + club.getName());
         stage.setScene(scene);
+        stage.setResizable(false);
         Image image = new Image("/imagenes/Icono.png");
         stage.getIcons().add(image);
         verPistas.getScene().getWindow().hide();

@@ -120,12 +120,12 @@
                      <center>
                         <Pane prefHeight="230.0" prefWidth="289.0" BorderPane.alignment="CENTER">
                            <children>
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                              <AnchorPane prefHeight="320.0" prefWidth="298.0">
                                  <children>
-                                    <ImageView fx:id="imageAvatar" fitHeight="230.0" fitWidth="298.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="imageAvatar" fitHeight="183.0" fitWidth="191.0" layoutX="23.0" layoutY="31.0" pickOnBounds="true" />
+                                    <ChoiceBox id="choice-box1" fx:id="imageBox" layoutX="90.0" layoutY="244.0" prefHeight="33.0" prefWidth="118.0" stylesheets="@../estilos/estilos.css" />
                                  </children>
                               </AnchorPane>
-                              <ChoiceBox id="choice-box1" fx:id="imageBox" layoutX="104.0" layoutY="250.0" prefHeight="33.0" prefWidth="118.0" stylesheets="@../estilos/estilos.css" />
                            </children>
                         </Pane>
                      </center>
