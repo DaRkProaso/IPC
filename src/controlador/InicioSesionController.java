@@ -116,6 +116,7 @@ public class InicioSesionController implements Initializable {
             stage.getIcons().add(image);
             stage.setResizable(false);
             loginButton.getScene().getWindow().hide();
+            stage.setResizable(false); 
             stage.show();
         }
         else {warningLabel.setText("Usuario o contraseña incorecta");}

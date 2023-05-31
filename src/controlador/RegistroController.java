@@ -170,8 +170,8 @@ public class RegistroController implements Initializable {
             stage.getIcons().add(image);
             stage.setTitle("Club de Tenis " + club.getName());
             registerInputButton.getScene().getWindow().hide();
-            stage.show();
             stage.setResizable(false);
+            stage.show();
         }
     }
 
